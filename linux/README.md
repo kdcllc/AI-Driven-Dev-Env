@@ -22,11 +22,16 @@
     # On Ubuntu
     sudo apt install lynx
     
-    
+    # on wsl i had to 
+    # sudo apt-get install python3-dev in order for the rag to be successful
     pipx install gptme-rag
 
     # run 
     gptme -m azure/gpt-4o
 
     OPENAI_BASE_URL="http://127.0.0.1:11434/v1" gptme 'hello' -m local/llama3.2:latest
+
+    # remove logs
+    rm -rf  ~/.local/share/gptme
+    rm -rf ~/.cache/gptme/rag 
 ```
