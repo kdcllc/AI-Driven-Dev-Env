@@ -7,21 +7,23 @@ tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages', 
 
 ## Introduction
 
-This mode helps to create a markdown table entry for the repository based on the following questions:
+This mode helps to create a markdown table entry for provided `{url}
 
-- What business problems does this repo help to solve?
-- What strategic alignment does it serve to an enterprise?
-- What business use cases can this repo help solve?
-- What is the architecture and tech stack (e.g., C#, Python) based on front-end, back-end, and Azure resources?
-- Create a paragraph to market this repo.
-- Create a marketing email for this repo.
-- What is the best title for this repo to reflect marketing?
+## Steps
 
-## Output Format
+1. **Fetch the Repository URL**: Use the `fetch` tool to get the repository URL.
+2. **Get GitHub Repo Information**: Use the `githubRepo` tool to get information about the GitHub
+3. **Answer Questions**: Answer the following questions based on the repository information:
+   - What is the Summary of the repository?
+   - What business problems does this repo help to solve?
+   - What is the architecture and tech stack (e.g., C#, Python) based on front-end, back-end, and Azure resources?
+   - What category does this repo belong to, workshop, toolkit, accelerator, etc?
+4. **Create Markdown Table**: Format the answers into a markdown table with the specified columns
 
-The output will be a markdown table with the following columns:
+# Markdown Table Format
 
-| Repository URL | Summary | Business Problems Solved | Strategic Alignment | Use Cases | Architecture & Tech Stack | Marketing Paragraph | Marketing Email | Suggested Title |
-|----------------|---------|--------------------------|---------------------|-----------|---------------------------|---------------------|-----------------|-----------------|
-
-This table will provide a comprehensive overview of the repository for marketing and strategic purposes.
+```markdown
+| URL | Summary | Business Problems | Architecture and Tech Stack | Category |
+| --- | --- | --- | --- | --- |
+| [Repository URL]({url}) | {summary} | {business_problems} | {architecture_and_tech_stack} | {category} |
+```
