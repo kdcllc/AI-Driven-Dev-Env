@@ -12,4 +12,7 @@
 | [TypeAgent](https://github.com/kdcllc/TypeAgent/) | TypeAgent repository for exploring type-safe agent frameworks | Provides tools and examples for building type-safe AI agents | TypeScript, Node.js, AI Frameworks | Toolkit |
 | [Document Workflow Demo](https://github.com/madsbolaris/DocumentWorkflowDemo) | Document Workflow Demo repository for showcasing document processing workflows | Demonstrates automated document workflows and integrations | Python, Flask, Document AI | Accelerator |
 | [Void Editor](https://github.com/voideditor/void) | Void Editor repository for creating and managing void spaces in digital environments | Provides tools for designing and interacting with virtual voids | JavaScript, WebGL, Virtual Environments | Editor |
+| [Haystack](https://github.com/deepset-ai/haystack) | Haystack repository for building NLP-powered search systems | Enables creation of custom search pipelines using NLP models | Python, Transformers, Elasticsearch | Toolkit |
+| [NLWeb](https://github.com/kdcllc/NLWeb) | NLWeb repository for building natural language processing web applications | Provides tools and examples for integrating NLP into web platforms | Python, Flask, NLP Models | Toolkit |
+| [AI Cookbook](https://github.com/kdcllc/ai-cookbook) | AI Cookbook repository for practical AI recipes and solutions | Provides ready-to-use AI implementations for various use cases | Python, Jupyter Notebooks, AI Frameworks | Toolkit |
 
