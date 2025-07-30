@@ -1,6 +1,6 @@
 ---
 description: Generate a markdown table entry for the repository with URL, summary, and other relevant details.
-tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages', 'playwright', 'microsoft.docs.mcp']
+tools: ['codebase', 'editFiles', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages', 'microsoft.docs.mcp', 'filesystem', 'playwright', 'github']
 ---
 
 # Git Repository Chat Mode
