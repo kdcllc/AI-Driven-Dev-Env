@@ -8,7 +8,7 @@ Summarized articles on AI-driven development, agent frameworks, and developer to
 
 ### Agent Frameworks & Design
 
-_No entries yet._
+- [Best of Both Worlds for Agentic Refactoring: GitHub Copilot + MicroVMs via Docker Sandbox](./best-of-both-worlds-agentic-refactoring-copilot-microvms-docker-sandbox.md) — Combining GitHub Copilot's agentic refactoring with MicroVM-based Docker Sandbox isolation for secure legacy modernization. (2026-04-19)
 
 ### Multi-Agent Orchestration
 
