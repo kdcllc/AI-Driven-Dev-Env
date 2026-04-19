@@ -75,3 +75,8 @@
 5. Copilot commits and creates PR
 6. Hermes reviews PR
 
+### 2026-04-19: Content Intake Needs Explicit Copilot Setup
+
+- Keep `@copilot` in `.squad/team.md` so roster-driven label sync can create `squad:copilot`.
+- Do not put `squad:copilot` directly in content issue templates; let the workflow add it after checking repo setup.
+- `COPILOT_ASSIGN_TOKEN` is optional for issue intake creation, but required for automatic Copilot coding-agent assignment. Without it, the workflow should say so and leave manual next steps.

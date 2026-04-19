@@ -60,6 +60,8 @@ Articles and repos are added via GitHub issue templates (`content:article`, `con
 3. Updates `articles/index.md` or `repos/index.md` with the new entry
 4. Opens a PR for human review
 
+Repository setup matters here: keep `@copilot` in `.squad/team.md`, sync labels so `squad:copilot` exists, and configure `COPILOT_ASSIGN_TOKEN` if you want GitHub Actions to assign the Copilot coding agent automatically. Without that secret, the workflow should leave clear manual next steps instead of pretending the repo is zero-config.
+
 **Do NOT** modify `articles.md` or `code.md` from content intake — those are manually curated.
 
 ## Integration Points

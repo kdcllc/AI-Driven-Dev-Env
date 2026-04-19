@@ -1,7 +1,7 @@
 name: "📰 Add Article"
 description: "Submit a blog post or article to be summarized and added to the repo"
 title: "[Article]: "
-labels: ["content:article", "squad:copilot"]
+labels: ["content:article"]
 body:
   - type: input
     id: url

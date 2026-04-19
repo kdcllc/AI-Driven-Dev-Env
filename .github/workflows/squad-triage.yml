@@ -36,7 +36,7 @@ jobs:
             const lines = content.split('\n');
 
             // Check if @copilot is on the team
-            const hasCopilot = content.includes('🤖 Coding Agent');
+            const hasCopilot = content.includes('🤖 Coding Agent') || content.includes('@copilot');
             const copilotAutoAssign = content.includes('<!-- copilot-auto-assign: true -->');
 
             // Parse @copilot capability profile

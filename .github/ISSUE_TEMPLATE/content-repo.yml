@@ -1,7 +1,7 @@
 name: "📦 Add Repository"
 description: "Submit a GitHub repository to be summarized and added to the repo"
 title: "[Repo]: "
-labels: ["content:repo", "squad:copilot"]
+labels: ["content:repo"]
 body:
   - type: input
     id: url

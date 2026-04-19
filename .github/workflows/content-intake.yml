@@ -20,12 +20,47 @@ jobs:
 
       - name: Parse issue and route to Copilot
         uses: actions/github-script@v7
+        env:
+          HAS_COPILOT_ASSIGN_TOKEN: ${{ secrets.COPILOT_ASSIGN_TOKEN != '' }}
         with:
           script: |
+            const fs = require('fs');
             const issue = context.payload.issue;
             const label = context.payload.label.name;
             const isArticle = label === 'content:article';
             const contentType = isArticle ? 'article' : 'repo';
+            const hasAssignToken = process.env.HAS_COPILOT_ASSIGN_TOKEN === 'true';
+
+            let teamFile = '.squad/team.md';
+            if (!fs.existsSync(teamFile)) {
+              teamFile = '.ai-team/team.md';
+            }
+            const teamContent = fs.existsSync(teamFile)
+              ? fs.readFileSync(teamFile, 'utf8')
+              : '';
+            const hasCopilot = teamContent.includes('🤖 Coding Agent') || teamContent.includes('@copilot');
+
+            // Ensure squad:copilot label exists if Copilot is on the team
+            if (hasCopilot) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: 'squad:copilot'
+                });
+              } catch (err) {
+                if (err.status === 404) {
+                  await github.rest.issues.createLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: 'squad:copilot',
+                    color: '10b981',
+                    description: 'Assigned to @copilot (Coding Agent) for autonomous work'
+                  });
+                  core.info('Created missing squad:copilot label');
+                }
+              }
+            }
 
             // Parse issue body fields from the issue form
             const body = issue.body || '';
@@ -81,6 +116,56 @@ jobs:
             const targetDir = isArticle ? 'articles' : 'repos';
             const targetFile = `${targetDir}/${slug}.md`;
             const indexFile = `${targetDir}/index.md`;
+            const currentLabels = issue.labels.map(l => l.name);
+
+            const ensureLabel = async (name, color, description) => {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name
+                });
+              } catch (err) {
+                if (err.status !== 404) {
+                  throw err;
+                }
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name,
+                  color,
+                  description
+                });
+              }
+            };
+
+            await ensureLabel(
+              label,
+              isArticle ? '1D76DB' : '0075CA',
+              isArticle
+                ? 'Article intake — auto-summarize and add to articles/'
+                : 'Repo intake — auto-summarize and add to repos/'
+            );
+
+            let routingStatus = '';
+            if (hasCopilot) {
+              // Label was already ensured at the top of the script
+
+              if (!currentLabels.includes('squad:copilot')) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['squad:copilot']
+                });
+              }
+
+              routingStatus = hasAssignToken
+                ? 'Added `squad:copilot`. This workflow will now try to assign the Copilot coding agent automatically.'
+                : 'Added `squad:copilot`, but automatic agent assignment is unavailable because `COPILOT_ASSIGN_TOKEN` is not configured. A maintainer must assign `@copilot` manually or process this intake by hand.';
+            } else {
+              routingStatus = 'Posted the intake instructions, but this repo is not currently configured with `@copilot` in `.squad/team.md`. Add the coding agent to the roster, run label sync, then assign `@copilot` manually if you want full automation.';
+            }
 
             // Build custom instructions for Copilot
             const instructions = [
@@ -102,9 +187,8 @@ jobs:
               `   - If the category section doesn't exist yet, create it.`,
               `   - Keep entries alphabetically sorted within each category.`,
               `   - Replace the "_No entries yet._" placeholder if it's the first entry in a category.`,
-              `5. Follow the formatting guidelines in \`.github/templates/ARTICLE_TEMPLATE.md\` (articles) or \`.github/templates/REPOSITORY_TEMPLATE.md\` (repos).`,
-              `6. Do NOT modify \`articles.md\` or \`code.md\` (those are manually curated).`,
-              `7. Commit with message: \`docs: add ${contentType} "${slug}"\``,
+              `5. Do NOT modify \`articles.md\` or \`code.md\` — those are manually curated and use different templates.`,
+              `6. Commit with message: \`docs: add ${contentType} "${slug}"\``,
             ].join('\n');
 
             // Post comment with structured instructions
@@ -119,7 +203,7 @@ jobs:
                 `**Category:** ${category}`,
                 `**Target:** \`${targetFile}\``,
                 ``,
-                `Routed to \`squad:copilot\` for automated summarization.`,
+                routingStatus,
                 ``,
                 `<details>`,
                 `<summary>Copilot work instructions</summary>`,
@@ -130,20 +214,9 @@ jobs:
               ].join('\n')
             });
 
-            // Ensure squad:copilot label is present
-            const currentLabels = issue.labels.map(l => l.name);
-            if (!currentLabels.includes('squad:copilot')) {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number,
-                labels: ['squad:copilot']
-              });
-            }
-
             core.info(`Content intake: ${contentType} — ${url} → ${targetFile}`);
 
-  # Assign Copilot coding agent (requires PAT)
+  # Assign Copilot coding agent when repo setup allows it
   assign-copilot:
     needs: route-content
     if: >
@@ -151,10 +224,35 @@ jobs:
       github.event.label.name == 'content:repo'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Copilot assignment prerequisites
+        id: preflight
+        uses: actions/github-script@v7
+        env:
+          HAS_COPILOT_ASSIGN_TOKEN: ${{ secrets.COPILOT_ASSIGN_TOKEN != '' }}
+        with:
+          script: |
+            const fs = require('fs');
+
+            let teamFile = '.squad/team.md';
+            if (!fs.existsSync(teamFile)) {
+              teamFile = '.ai-team/team.md';
+            }
+            const teamContent = fs.existsSync(teamFile)
+              ? fs.readFileSync(teamFile, 'utf8')
+              : '';
+
+            const hasCopilot = teamContent.includes('🤖 Coding Agent') || teamContent.includes('@copilot');
+            const hasAssignToken = process.env.HAS_COPILOT_ASSIGN_TOKEN === 'true';
+
+            core.setOutput('can_assign', hasCopilot && hasAssignToken ? 'true' : 'false');
+
       - name: Assign @copilot coding agent
+        if: steps.preflight.outputs.can_assign == 'true'
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN }}
+          github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
@@ -172,7 +270,7 @@ jobs:
               `Read the issue body for the URL and category.`,
               `Use the template at ${isArticle ? 'articles' : 'repos'}/.template.md to create the summary file.`,
               `Update ${isArticle ? 'articles' : 'repos'}/index.md with the new entry.`,
-              `Do NOT modify articles.md or code.md — those are manually curated.`,
+              `Do NOT modify articles.md or code.md — those are manually curated and use different templates.`,
               `Keep the summary concise, factual, and focused on relevance to AI-driven development.`,
             ].join(' ');
 
@@ -200,5 +298,11 @@ jobs:
                 core.info(`Fallback: assigned copilot-swe-agent to #${issue_number}`);
               } catch (err2) {
                 core.warning(`Fallback failed: ${err2.message}`);
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body: '⚠️ **Content Intake:** Automatic Copilot assignment did not succeed. The instructions and labels are in place, but a maintainer must assign `@copilot` manually or process this intake without the coding agent.'
+                });
               }
             }

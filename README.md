@@ -84,7 +84,7 @@ Found a useful article or GitHub repo? Add it in seconds:
 1. **Article:** Open a [📰 Add Article](https://github.com/kdcllc/AI-DrivenDevEnv/issues/new?template=content-article.yml) issue — paste the URL and pick a category
 2. **Repo:** Open a [📦 Add Repository](https://github.com/kdcllc/AI-DrivenDevEnv/issues/new?template=content-repo.yml) issue — paste the URL and pick a category
 
-A Copilot agent automatically summarizes the content and opens a PR. You just review and merge.
+For zero-touch routing, keep `@copilot` in `.squad/team.md`, run the label sync workflow once, and configure the `COPILOT_ASSIGN_TOKEN` repository secret. If that secret is missing or agent assignment is unavailable, the workflow still posts the instructions and labels the issue, but a maintainer must assign `@copilot` manually or handle the intake by hand.
 
 ### Key Setup Guides
 
@@ -101,4 +101,3 @@ Maintained by [kdcllc](mailto:kingdavidconsulting@gmail.com).
 If this toolkit helped you, consider [buying me a coffee](https://www.buymeacoffee.com/vyve0og) or giving it a star ⭐.
 
 ![I stand with Israel](./images/IStandWithIsrael.png)
-
