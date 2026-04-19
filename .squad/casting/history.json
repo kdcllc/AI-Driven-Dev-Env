@@ -1,0 +1,22 @@
+{
+  "universe_usage_history": [
+    {
+      "universe": "Futurama",
+      "assignment_id": "assignment-2026-04-19-ai-drivendevenv",
+      "used_at": "2026-04-19T20:33:51Z"
+    }
+  ],
+  "assignment_cast_snapshots": {
+    "assignment-2026-04-19-ai-drivendevenv": {
+      "universe": "Futurama",
+      "agents": {
+        "lead": "Leela",
+        "ai-context-engineer": "Farnsworth",
+        "technical-writer": "Hermes",
+        "platform-engineer": "Amy",
+        "devops-automation-engineer": "Bender"
+      },
+      "created_at": "2026-04-19T20:33:51Z"
+    }
+  }
+}
