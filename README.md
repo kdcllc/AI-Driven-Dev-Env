@@ -72,8 +72,19 @@ For teams building agentic AI systems, integrate [Squad](https://github.com/brad
 - **[linux/README.md](linux/README.md)** – Tool reference for Linux setup
 - **[win/README.md](win/README.md)** – Windows-specific notes and Python setup
 - **[articles.md](articles.md)** – Curated links on AI agents, RAG, and frameworks
+- **[articles/index.md](articles/index.md)** – Auto-generated article summaries (by category)
 - **[code.md](code.md)** – Related repositories and projects
+- **[repos/index.md](repos/index.md)** – Auto-generated repo summaries (by category)
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** – Contribution guidelines and patterns
+
+### Adding Articles & Repos
+
+Found a useful article or GitHub repo? Add it in seconds:
+
+1. **Article:** Open a [📰 Add Article](https://github.com/kdcllc/AI-DrivenDevEnv/issues/new?template=content-article.yml) issue — paste the URL and pick a category
+2. **Repo:** Open a [📦 Add Repository](https://github.com/kdcllc/AI-DrivenDevEnv/issues/new?template=content-repo.yml) issue — paste the URL and pick a category
+
+A Copilot agent automatically summarizes the content and opens a PR. You just review and merge.
 
 ### Key Setup Guides
 

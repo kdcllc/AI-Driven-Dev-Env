@@ -103,6 +103,11 @@ jobs:
               { name: 'priority:p2', color: 'FBCA04', description: 'Next sprint' }
             ];
 
+            const CONTENT_LABELS = [
+              { name: 'content:article', color: '1D76DB', description: 'Article intake — auto-summarize and add to articles/' },
+              { name: 'content:repo', color: '0075CA', description: 'Repo intake — auto-summarize and add to repos/' }
+            ];
+
             // Ensure the base "squad" triage label exists
             const labels = [
               { name: 'squad', color: SQUAD_COLOR, description: 'Squad triage inbox — Lead will assign to a member' }
@@ -131,6 +136,7 @@ jobs:
             labels.push(...TYPE_LABELS);
             labels.push(...PRIORITY_LABELS);
             labels.push(...SIGNAL_LABELS);
+            labels.push(...CONTENT_LABELS);
 
             // Sync labels (create or update)
             for (const label of labels) {

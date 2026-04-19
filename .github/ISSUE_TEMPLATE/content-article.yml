@@ -1,0 +1,38 @@
+name: "📰 Add Article"
+description: "Submit a blog post or article to be summarized and added to the repo"
+title: "[Article]: "
+labels: ["content:article", "squad:copilot"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Article URL
+      description: "Full URL of the article (e.g., https://devblogs.microsoft.com/...)"
+      placeholder: "https://devblogs.microsoft.com/..."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: "Primary topic area"
+      options:
+        - Agent Frameworks & Design
+        - Multi-Agent Orchestration
+        - RAG & Search
+        - LLMs & Model Integration
+        - DevOps & CI/CD
+        - Developer Tooling
+        - Azure & Cloud
+        - Security & Identity
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Why is this useful?
+      description: "Optional — one or two sentences on why this matters for AI-driven development"
+      placeholder: "This article covers a new pattern for..."
+    validations:
+      required: false
