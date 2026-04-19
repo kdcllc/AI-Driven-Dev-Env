@@ -9,6 +9,13 @@
 
 <!-- Append new learnings below. Each entry is something lasting about the project. -->
 
+### 2026-04-19: PR Handoff for Content Intake Automation
+
+- The content-intake branch is `feat/automatic-repo-summurization`; the default merge target is `master`.
+- The intake system spans `.github/ISSUE_TEMPLATE/content-{article,repo}.yml`, `.github/workflows/content-intake.yml`, `.squad/team.md`, `README.md`, `.github/copilot-instructions.md`, `articles/index.md`, and `repos/index.md`.
+- The workflow pattern is: issue form adds `content:*` labels, workflow parses the issue, ensures `squad:copilot`, posts structured instructions, then tries Copilot assignment with a graceful manual fallback when automatic assignment is unavailable.
+- When publishing branch work, check `gh pr list --head <branch>` before creating a PR and push the branch first so the PR body reflects the actual remote tip.
+
 ### 2026-04-19: Content Ingestion Automation System
 
 **Context:** User wants automatic article/repo submission when discovering content on devblogs.microsoft.com or GitHub.
