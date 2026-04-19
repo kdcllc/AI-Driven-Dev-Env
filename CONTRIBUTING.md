@@ -1,43 +1,66 @@
 # Contributing to AI-DrivenDevEnv
 
-Thank you for considering contributing to the AI-DrivenDevEnv project! We welcome your contributions and appreciate your help in making this project better.
-
-Before you get started, please take a moment to read through this guide to understand how you can contribute effectively.
+Thank you for contributing to a documentation-first toolkit for agentic AI development. We welcome issues, documentation improvements, scripts, and integration patterns.
 
 ## Table of Contents
 
-- [How to Contribute](#how-to-contribute)
-  - [Reporting Issues](#reporting-issues)
-  - [Pull Requests](#pull-requests)
-- [Getting Started](#getting-started)
+- [Issues](#issues)
+- [Pull Requests](#pull-requests)
+- [Documentation & Scripts](#documentation--scripts)
+- [Squad Integration](#squad-integration)
 - [Code of Conduct](#code-of-conduct)
 - [License](#license)
 
-## How to Contribute
+## Issues
 
-### Reporting Issues
+Found a bug or have a feature request?
 
-If you encounter any issues with the project, such as bugs or feature requests, please follow these steps:
+1. **Check existing issues** at [Issues](https://github.com/kdcllc/AI-DrivenDevEnv/issues) to avoid duplicates.
+2. **Create a new issue** with:
+   - Clear title and description
+   - Steps to reproduce (for bugs)
+   - Expected vs. actual behavior
+   - Environment (Ubuntu version, Python version, tools involved)
+   - Error messages or logs (if applicable)
 
-1. Check the [Issues](https://github.com/kdcllc/AI-DrivenDevEnv/issues) tab to see if the issue has already been reported. If it has, you can add relevant information or subscribe to the issue for updates.
-2. If the issue is not already reported, create a new issue. Please provide detailed information about the problem or feature request, including steps to reproduce, error messages, and the expected behavior.
+## Pull Requests
 
-### Pull Requests
+We welcome PRs for bug fixes, new setup guides, scripts, and documentation.
 
-We welcome pull requests (PRs) for bug fixes, enhancements, or new features. To contribute code to the project, follow these steps:
+### Before You Start
 
-1. Fork the repository to your GitHub account.
-2. Create a new branch from the `master` branch to work on your changes.
-3. Make your changes and commit them with clear, descriptive commit messages.
-4. Push your branch to your GitHub fork.
-5. Create a pull request against the `master` branch of the main repository.
+- Fork the repository
+- Create a branch from `master`: `git checkout -b feature/your-feature-name`
+- Keep changes focused and atomic
 
-Our team will review your pull request and provide feedback. Once your changes are approved, they will be merged into the project.
+### Submission Checklist
+
+1. **Documentation & scripts stay in sync:** If you modify a tool's setup script in `linux/scripts/`, update the corresponding doc in `linux/` as well.
+2. **Test your scripts** on at least one target environment (e.g., Ubuntu 22.04 or 24.04).
+3. **Update relevant READMEs** if you're adding new tooling or patterns.
+4. **Commit with clear messages:** Use present tense, e.g., "Add ODBC setup script for SQL Server."
+5. **Push to your fork and create a PR** against `master`.
+
+### Squad Integration
+
+If your contribution involves [Squad](https://github.com/bradygaster/squad) patterns (multi-agent workflows, `.squad/` templates, agent charters):
+
+- Place Squad-related docs and templates in `.squad/templates/` or `.squad/agents/`
+- Reference Squad patterns in setup guides where they add value
+- **Do not overstate Squadron capabilities** — describe it as human-led AI agent orchestration, GitHub Copilot–based, and experimental/alpha
+
+### Review Process
+
+- Our team reviews PRs for alignment with the toolkit's goals
+- We may request changes for clarity, testing, or consistency
+- Once approved, your changes will be merged into `master`
 
 ## License
 
-By contributing to this project, you agree that your contributions will be licensed under the project's [LICENSE](LICENSE).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+By contributing, you agree your work is licensed under MIT.
 
 ---
 
-Thank you for considering contributing to AI-DrivenDevEnv. Your involvement helps make this project better for the community.
+**Questions?** Open an issue or reach out to the maintainer. Thanks for helping build better agentic AI dev environments!

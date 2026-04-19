@@ -1,19 +1,24 @@
-# AI related repositories
+# Related AI & Development Projects
 
-| Repository URL | Summary | Business Problems | Architecture | Category |
-|----------------|---------|------------------|--------------|----------|
-| [Semantic Workbench](https://github.com/kdcllc/semanticworkbench) | Semantic Workbench repository for AI-driven solutions | Helps solve semantic analysis and AI-driven decision-making problems | Python, Flask, Azure Cognitive Services | Toolkit |
-| [Python AI Agent Frameworks Demos](https://github.com/Azure-Samples/python-ai-agent-frameworks-demos) | Python AI Agent Frameworks Demos repository showcasing AI agent capabilities | Demonstrates AI agent frameworks for automation and decision-making | Python, FastAPI, Azure Machine Learning | Accelerator |
-| [Multi-Agent Workshop](https://github.com/Azure-Samples/multi-agent-workshop) | Multi-Agent Workshop repository for exploring multi-agent systems | Provides resources and examples for building and understanding multi-agent systems | Python, Azure Machine Learning, Distributed Systems | Workshop |
-| [Dotnet AI Workshop](https://github.com/kdcllc/dotnet-ai-workshop) | Dotnet AI Workshop repository for exploring AI capabilities with .NET | Provides resources and examples for building AI solutions using .NET technologies | C#, .NET, Azure Cognitive Services | Workshop |
-| [Postgres Agentic Shop](https://github.com/Azure-Samples/postgres-agentic-shop) | Postgres Agentic Shop repository for demonstrating agentic systems with PostgreSQL | Showcases agentic systems for e-commerce and data-driven decision-making | Python, PostgreSQL, Azure | Toolkit |
-| [AgentCon2025](https://github.com/kdcllc/AgentCon2025) | AgentCon2025 repository for futuristic AI agent concepts | Explores next-generation AI agent frameworks and applications | Python, AI Frameworks, Cloud Integration | Research |
-| [MCP Dotnet Samples](https://github.com/kdcllc/mcp-dotnet-samples) | MCP Dotnet Samples repository for showcasing .NET integrations with Microsoft Cloud Platform | Provides examples and resources for building cloud-native applications using .NET | C#, .NET, Azure Services | Toolkit |
-| [TypeAgent](https://github.com/kdcllc/TypeAgent/) | TypeAgent repository for exploring type-safe agent frameworks | Provides tools and examples for building type-safe AI agents | TypeScript, Node.js, AI Frameworks | Toolkit |
-| [Document Workflow Demo](https://github.com/madsbolaris/DocumentWorkflowDemo) | Document Workflow Demo repository for showcasing document processing workflows | Demonstrates automated document workflows and integrations | Python, Flask, Document AI | Accelerator |
-| [Void Editor](https://github.com/voideditor/void) | Void Editor repository for creating and managing void spaces in digital environments | Provides tools for designing and interacting with virtual voids | JavaScript, WebGL, Virtual Environments | Editor |
-| [Haystack](https://github.com/deepset-ai/haystack) | Haystack repository for building NLP-powered search systems | Enables creation of custom search pipelines using NLP models | Python, Transformers, Elasticsearch | Toolkit |
-| [NLWeb](https://github.com/kdcllc/NLWeb) | NLWeb repository for building natural language processing web applications | Provides tools and examples for integrating NLP into web platforms | Python, Flask, NLP Models | Toolkit |
-| [AI Cookbook](https://github.com/kdcllc/ai-cookbook) | AI Cookbook repository for practical AI recipes and solutions | Provides ready-to-use AI implementations for various use cases | Python, Jupyter Notebooks, AI Frameworks | Toolkit |
-| [copilot-in-azure-demo](https://github.com/PlagueHO/copilot-in-azure-demo) | Demonstration assets for Microsoft Copilot in Azure, using a Contoso Hotels migration scenario to showcase Copilot’s AI assistance across the cloud adoption lifecycle. | Helps organizations understand and accelerate cloud migration, modernize legacy systems, improve scalability, reduce operational overhead, and leverage AI for design, deployment, and operations in Azure. | Front-end: .NET Core 6.0 web app on Azure App Service; Back-end: Azure SQL Database, Azure VM (Windows), Azure Key Vault; Networking: Azure Virtual Network, Application Gateway with WAF; Monitoring: Azure Monitor, Log Analytics, Application Insights; IaC: Bicep, Azure CLI. | Workshop / Demo Environment |
+A collection of repositories showcasing agentic AI patterns, agent frameworks, and developer tooling. Many of these complement this toolkit or demonstrate integration patterns for multi-agent systems.
 
+| Repository | Summary | Key Focus |
+|---|---|---|
+| **[Squad](https://github.com/bradygaster/squad)** | Human-led AI agent teams using GitHub Copilot | Multi-agent orchestration, persistent state, `.squad/` templates |
+| [Semantic Workbench](https://github.com/kdcllc/semanticworkbench) | Semantic analysis and AI-driven decision-making | Python, Flask, Azure Cognitive Services |
+| [Python AI Agent Frameworks Demos](https://github.com/Azure-Samples/python-ai-agent-frameworks-demos) | Agent framework comparisons and examples | Python, FastAPI, Azure Machine Learning |
+| [Multi-Agent Workshop](https://github.com/Azure-Samples/multi-agent-workshop) | Multi-agent system design and patterns | Python, Azure ML, distributed systems |
+| [Dotnet AI Workshop](https://github.com/kdcllc/dotnet-ai-workshop) | AI capabilities using .NET | C#, .NET, Azure Cognitive Services |
+| [Postgres Agentic Shop](https://github.com/Azure-Samples/postgres-agentic-shop) | E-commerce agentic system with PostgreSQL | Python, PostgreSQL, Azure |
+| [AgentCon2025](https://github.com/kdcllc/AgentCon2025) | Next-generation agent concepts | Python, AI frameworks, cloud integration |
+| [MCP Dotnet Samples](https://github.com/kdcllc/mcp-dotnet-samples) | Model Context Protocol for .NET | C#, .NET, Azure services |
+| [TypeAgent](https://github.com/kdcllc/TypeAgent/) | Type-safe agent frameworks | TypeScript, Node.js, AI frameworks |
+| [Void Editor](https://github.com/voideditor/void) | Digital environment design and interaction | JavaScript, WebGL, virtual environments |
+| [Haystack](https://github.com/deepset-ai/haystack) | NLP-powered search pipelines | Python, Transformers, Elasticsearch |
+| [NLWeb](https://github.com/kdcllc/NLWeb) | NLP integration for web platforms | Python, Flask, NLP models |
+| [AI Cookbook](https://github.com/kdcllc/ai-cookbook) | Practical AI recipes and solutions | Python, Jupyter, AI frameworks |
+| [copilot-in-azure-demo](https://github.com/PlagueHO/copilot-in-azure-demo) | Microsoft Copilot in Azure demo (Contoso scenario) | .NET, Azure SQL, Bicep, monitoring |
+
+---
+
+**See also:** [articles.md](articles.md) for learning resources and framework references.
