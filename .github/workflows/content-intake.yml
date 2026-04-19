@@ -1,0 +1,204 @@
+name: Content Intake
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  route-content:
+    # Trigger on content:article or content:repo labels
+    if: >
+      github.event.label.name == 'content:article' ||
+      github.event.label.name == 'content:repo'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse issue and route to Copilot
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const label = context.payload.label.name;
+            const isArticle = label === 'content:article';
+            const contentType = isArticle ? 'article' : 'repo';
+
+            // Parse issue body fields from the issue form
+            const body = issue.body || '';
+
+            // Extract URL from the form
+            let url = '';
+            const urlMatch = body.match(/### Article URL\s*\n\s*(\S+)/i) ||
+                             body.match(/### Repository URL\s*\n\s*(\S+)/i) ||
+                             body.match(/(https?:\/\/\S+)/);
+            if (urlMatch) {
+              url = urlMatch[1].trim();
+            }
+
+            // Extract category
+            let category = 'Other';
+            const catMatch = body.match(/### Category\s*\n\s*(.+)/i);
+            if (catMatch) {
+              category = catMatch[1].trim();
+            }
+
+            // Extract context/reason
+            let userContext = '';
+            const ctxMatch = body.match(/### Why is this useful\?\s*\n\s*([\s\S]*?)(?=###|$)/i);
+            if (ctxMatch) {
+              userContext = ctxMatch[1].trim();
+            }
+
+            if (!url) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: '⚠️ **Content Intake:** Could not find a URL in this issue. Please edit the issue to include a valid URL.'
+              });
+              return;
+            }
+
+            // Generate a slug from the URL for the filename
+            let slug = '';
+            if (isArticle) {
+              const urlObj = new URL(url);
+              slug = urlObj.pathname.split('/').filter(Boolean).pop() || 'untitled';
+              slug = slug.replace(/[^a-z0-9-]/gi, '-').toLowerCase().substring(0, 60);
+            } else {
+              const repoMatch = url.match(/github\.com\/([^\/]+)\/([^\/\s]+)/);
+              if (repoMatch) {
+                slug = `${repoMatch[1]}-${repoMatch[2]}`.toLowerCase().replace(/[^a-z0-9-]/g, '-').substring(0, 60);
+              } else {
+                slug = 'unknown-repo';
+              }
+            }
+
+            const targetDir = isArticle ? 'articles' : 'repos';
+            const targetFile = `${targetDir}/${slug}.md`;
+            const indexFile = `${targetDir}/index.md`;
+
+            // Build custom instructions for Copilot
+            const instructions = [
+              `## Content Intake Task`,
+              ``,
+              `**Type:** ${contentType}`,
+              `**URL:** ${url}`,
+              `**Category:** ${category}`,
+              `**User Context:** ${userContext || 'None provided'}`,
+              `**Target File:** \`${targetFile}\``,
+              `**Index File:** \`${indexFile}\``,
+              ``,
+              `### Instructions`,
+              ``,
+              `1. Read the content at the URL above (use web_fetch or the GitHub API for repos).`,
+              `2. Create \`${targetFile}\` using the template in \`${targetDir}/.template.md\`.`,
+              `3. Fill in all template fields with accurate information from the source.`,
+              `4. Update \`${indexFile}\` — add the new entry under the correct category section.`,
+              `   - If the category section doesn't exist yet, create it.`,
+              `   - Keep entries alphabetically sorted within each category.`,
+              `   - Replace the "_No entries yet._" placeholder if it's the first entry in a category.`,
+              `5. Follow the formatting guidelines in \`.github/templates/ARTICLE_TEMPLATE.md\` (articles) or \`.github/templates/REPOSITORY_TEMPLATE.md\` (repos).`,
+              `6. Do NOT modify \`articles.md\` or \`code.md\` (those are manually curated).`,
+              `7. Commit with message: \`docs: add ${contentType} "${slug}"\``,
+            ].join('\n');
+
+            // Post comment with structured instructions
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: [
+                `### 📥 Content Intake — ${isArticle ? 'Article' : 'Repository'}`,
+                ``,
+                `**URL:** ${url}`,
+                `**Category:** ${category}`,
+                `**Target:** \`${targetFile}\``,
+                ``,
+                `Routed to \`squad:copilot\` for automated summarization.`,
+                ``,
+                `<details>`,
+                `<summary>Copilot work instructions</summary>`,
+                ``,
+                instructions,
+                ``,
+                `</details>`,
+              ].join('\n')
+            });
+
+            // Ensure squad:copilot label is present
+            const currentLabels = issue.labels.map(l => l.name);
+            if (!currentLabels.includes('squad:copilot')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['squad:copilot']
+              });
+            }
+
+            core.info(`Content intake: ${contentType} — ${url} → ${targetFile}`);
+
+  # Assign Copilot coding agent (requires PAT)
+  assign-copilot:
+    needs: route-content
+    if: >
+      github.event.label.name == 'content:article' ||
+      github.event.label.name == 'content:repo'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign @copilot coding agent
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.issue.number;
+
+            const { data: repoData } = await github.rest.repos.get({ owner, repo });
+            const baseBranch = repoData.default_branch;
+
+            const label = context.payload.label.name;
+            const isArticle = label === 'content:article';
+            const contentType = isArticle ? 'article' : 'repo';
+
+            const customInstructions = [
+              `You are summarizing a ${contentType} for the AI-DrivenDevEnv toolkit.`,
+              `Read the issue body for the URL and category.`,
+              `Use the template at ${isArticle ? 'articles' : 'repos'}/.template.md to create the summary file.`,
+              `Update ${isArticle ? 'articles' : 'repos'}/index.md with the new entry.`,
+              `Do NOT modify articles.md or code.md — those are manually curated.`,
+              `Keep the summary concise, factual, and focused on relevance to AI-driven development.`,
+            ].join(' ');
+
+            try {
+              await github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/assignees', {
+                owner, repo, issue_number,
+                assignees: ['copilot-swe-agent[bot]'],
+                agent_assignment: {
+                  target_repo: `${owner}/${repo}`,
+                  base_branch: baseBranch,
+                  custom_instructions: customInstructions,
+                  custom_agent: '',
+                  model: ''
+                },
+                headers: { 'X-GitHub-Api-Version': '2022-11-28' }
+              });
+              core.info(`Assigned copilot-swe-agent to issue #${issue_number}`);
+            } catch (err) {
+              core.warning(`Agent assignment failed: ${err.message}`);
+              try {
+                await github.rest.issues.addAssignees({
+                  owner, repo, issue_number,
+                  assignees: ['copilot-swe-agent']
+                });
+                core.info(`Fallback: assigned copilot-swe-agent to #${issue_number}`);
+              } catch (err2) {
+                core.warning(`Fallback failed: ${err2.message}`);
+              }
+            }

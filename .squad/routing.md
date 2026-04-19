@@ -11,6 +11,7 @@ How to decide who handles what.
 | Documentation & contributor guidance | Hermes | README updates, docs organization, writing quality, examples |
 | Platform setup & external integrations | Amy | Linux/Windows setup docs, Azure notes, ODBC, environment setup |
 | Automation & CLI workflow | Bender | Shell scripts, bootstrap flows, GitHub workflow ergonomics, repeatable setup |
+| Content intake (articles & repos) | @copilot | Summarize URL, create entry file, update index — triggered by issue template |
 | Code review | Leela | Review PRs, check quality, suggest improvements |
 | Testing | Bender | Verify scripts, spot automation regressions, add validation coverage |
 | Scope & priorities | Leela | What to build next, trade-offs, decisions |
@@ -22,6 +23,8 @@ How to decide who handles what.
 |-------|--------|-----|
 | `squad` | Triage: analyze issue, assign `squad:{member}` label | Lead |
 | `squad:{name}` | Pick up issue and complete the work | Named member |
+| `content:article` | Auto-summarize article and open PR | @copilot via content-intake workflow |
+| `content:repo` | Auto-summarize repo and open PR | @copilot via content-intake workflow |
 
 ### How Issue Assignment Works
 
