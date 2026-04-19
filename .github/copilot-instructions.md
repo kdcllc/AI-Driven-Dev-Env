@@ -1,58 +1,112 @@
 # Copilot Instructions for AI-DrivenDevEnv
 
+> **Note:** This project uses [Squad](https://github.com/bradygaster/squad) for human-led agent coordination. Squad team members have access to `.squad/` for shared state, decisions, and role-specific charters. If you're part of the Squad, also read `.squad/team.md` and your agent charter at `.squad/agents/{your-name}/charter.md`.
+
 ## Project Overview
-- **Purpose:** Scripts and docs for automating dev environment setup, especially on Linux (Ubuntu). Focus on AI/LLM integration and toolchain bootstrapping.
+
+- **Purpose:** Documentation-first toolkit for agentic AI developer workflows, setup guides, and reusable Copilot/Squad patterns
+- **Philosophy:** Context engineering over clever prompts. Explicit patterns, central docs, repeatable workflows.
 - **Key Directories:**
   - `linux/` — OS-specific setup docs and scripts
   - `win/` — Windows-specific setup docs and scripts
   - `images/` — Project images
+  - `.squad/` — Persistent team state (Squad members only)
   - Root scripts (e.g., `run-aider.sh`) — Main entry points
 
 ## Architecture & Patterns
-- **Script-Driven:** Most automation is via shell scripts in `linux/scripts/` and root.
-- **Documentation-First:** Each tool/tech has a dedicated markdown doc in `linux/` or `win/`.
-- **Model Integration:** Designed to work with local and remote LLMs (e.g., `qwen2.5-coder`, `llama3.1`, `gptme`).
-- **No monolithic app code** — this repo is a toolkit, not a single application.
+
+- **Script-Driven:** Most automation is via shell scripts in `linux/scripts/` and root
+- **Documentation-First:** Each tool/tech has a dedicated markdown doc in `linux/` or `win/`
+- **Model Integration:** Designed to work with local and remote LLMs (e.g., `qwen2.5-coder`, `llama3.1`, `gptme`)
+- **No monolithic app code** — this repo is a toolkit, not a single application
+- **Context as Code:** Custom instructions, prompt files, and `.squad/` state are the "interface" to this repo
 
 ## Developer Workflows
+
+### For Individual Developers
+
 - **Setup (Linux):**
   - Clone repo, then run `./run-aider.sh` (main entry point)
   - For Azure config: `./linux/scripts/aider-az-setup.sh <api_key> <api_version> <api_base>`
   - For ODBC: `sudo ./linux/scripts/install-odbc.sh`
-- **Docs:**
-  - See `linux/README.md` for Linux-specific tool usage
-  - See `win/README.md` for Windows-specific notes
-- **Model Usage:**
-  - LLMs are referenced in docs/scripts, not managed by a central orchestrator
-  - Example: `gptme -m azure/gpt-4o` or `OPENAI_BASE_URL=... gptme ...`
+- **Copilot Chat / Aider:**
+  - Read `.github/copilot-instructions.md` (this file) for context
+  - Reference `ai-coding.md` for guidance on context engineering and agent workflows
+  - Use `.github/prompts/` for repeatable task definitions
+
+### For Squad Team Members
+
+- **Before starting:** Check `.squad/decisions.md` for active decisions
+- **Your role:** Read `.squad/agents/{your-name}/charter.md` to understand your specialty
+- **Handoffs:** Review `.squad/routing.md` to see when to pass work to another agent
+- **State:** Use `.squad/log/` to track work; Scribe merges logs into history
+- **Decisions:** Write to `.squad/decisions/inbox/` when others need to know about a decision
 
 ## Conventions & Patterns
+
 - **Scripts are idempotent** where possible; safe to re-run
 - **Docs and scripts are tightly coupled** — update both when changing workflows
 - **No central config file** — settings are passed via env vars or script args
 - **Linux is primary target**; Windows support is secondary
+- **Context is everything** — When in doubt, add more docs, not fewer
 
 ## Integration Points
+
 - **External:** Azure, ODBC, LLMs (local/remote)
-- **Internal:** Scripts call each other, but no deep code dependencies
+- **Internal:** Scripts call each other; Copilot/aider/Squad agents coordinate via this file, `.squad/`, and prompt files
+- **Orchestration:** Squad uses GitHub Copilot agent mode to coordinate specialists
+
+## When You Get Stuck
+
+1. **Don't know how to do something?** → Check `ai-coding.md` for context engineering and agent guidance
+2. **Not sure about project conventions?** → Look at existing scripts and docs; they are the source of truth
+3. **Need to coordinate with team?** → Use `.squad/decisions.md` or write to `.squad/decisions/inbox/`
+4. **Debugging a script or setup?** → Check `linux/README.md` or the specific doc for that tool (e.g., `linux/aider-chat.md`)
 
 ## Examples
-- To set up a dev environment:
-  ```bash
-  git clone https://github.com/kdcllc/AI-DrivenDevEnv.git
-  cd AI-DrivenDevEnv
-  ./run-aider.sh
-  ```
-- To configure Azure:
-  ```bash
-  ./linux/scripts/aider-az-setup.sh <api_key> <api_version> <api_base>
-  ```
 
-## Key Files
-- `run-aider.sh` — Main entry point for environment setup
-- `linux/scripts/` — All major automation scripts
-- `linux/README.md` — Linux-specific toolchain notes
-- `win/README.md` — Windows-specific toolchain notes
+### Set Up a Dev Environment (Individual)
+
+```bash
+git clone https://github.com/kdcllc/AI-DrivenDevEnv.git
+cd AI-DrivenDevEnv
+./run-aider.sh
+```
+
+### Configure Azure (Individual)
+
+```bash
+./linux/scripts/aider-az-setup.sh <api_key> <api_version> <api_base>
+```
+
+### Working with Squad
+
+1. Check team decisions: `cat .squad/decisions.md`
+2. Find your charter: `cat .squad/agents/farnsworth/charter.md` (or your role)
+3. See routing logic: `cat .squad/routing.md`
+4. Get started on a task in chat, let Copilot route to the right specialist
+
+## Key Files & Directories
+
+- **`.github/copilot-instructions.md`** — This file; AI instructions for the project
+- **`ai-coding.md`** — Deep dive into context engineering, Copilot modes, Squad patterns
+- **`run-aider.sh`** — Main entry point for environment setup
+- **`linux/scripts/`** — All major automation scripts
+- **`linux/README.md`** — Linux-specific toolchain notes
+- **`win/README.md`** — Windows-specific toolchain notes
+- **`.squad/`** — Persistent team state (Squad members)
+  - `.squad/team.md` — Team roster and structure
+  - `.squad/decisions.md` — Active decisions and governance
+  - `.squad/agents/{name}/charter.md` — Individual agent responsibilities and patterns
+  - `.squad/routing.md` — How work flows between agents
+
+## Responsible AI & Security
+
+- **Review AI-generated code**: Always validate Copilot's suggestions for correctness, security, and compliance before using them in production
+- **Never include secrets or credentials** in prompts, code, or `.squad/` state
+- **Understand limitations:** Copilot, aider, and Squad are tools. Humans make final decisions.
+- **Privacy:** Keep personal data and proprietary information out of AI-assisted workflows
 
 ---
-If any workflow or integration is unclear, check the relevant `README.md` or script in `linux/` or `win/`.
+
+**Need help?** Check the README files in `linux/` or `win/`, or read `ai-coding.md` for deeper context engineering guidance.

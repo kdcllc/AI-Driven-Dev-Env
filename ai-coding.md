@@ -1,73 +1,135 @@
-# AI assisted coding
+# AI-Assisted Coding & Agentic Workflows
 
-## What is Context Engineering?
+## Context Engineering: The Foundation
 
-[Context Engineering](https://github.com/coleam00/context-engineering-intro) represents a paradigm shift from traditional prompt engineering:
+[Context Engineering](https://github.com/coleam00/context-engineering-intro) represents a paradigm shift from traditional prompt engineering. It's the discipline of structuring information so AI agents can reliably reason and act within your project.
 
 ### Prompt Engineering vs Context Engineering
 
-**Prompt Engineering:**
+| Aspect | Prompt Engineering | Context Engineering |
+|--------|-------------------|---------------------|
+| **Approach** | Clever wording and phrasing | Complete information architecture |
+| **Scope** | How you ask the question | What the AI needs to know before answering |
+| **Analogy** | Sticky note | Full screenplay with all details, cast, constraints |
+| **Failure Mode** | Poor phrasing → wrong answer | Missing context → unpredictable behavior |
 
-- Focuses on clever wording and specific phrasing
-- Limited to how you phrase a task
-- Like giving someone a sticky note
+### Why Context Engineering Matters for Agentic AI
 
-**Context Engineering:**
+1. **Reduces Agent Failures**: Most agentic failures aren't model failures—they're **context failures**. Agents lack the project knowledge to make good decisions.
+2. **Ensures Consistency**: Explicit patterns, conventions, and rules let AI follow your project's style and architecture.
+3. **Enables Complex Workflows**: Multi-step implementations, tool use, and error recovery all depend on rich context.
+4. **Self-Correcting Loops**: With proper context about validation and expectations, agents can detect and fix their own mistakes.
+5. **Scales Across Teams**: When context is explicit, any agent (Copilot, aider, Squad team member) can pick up where another left off.
 
-- A complete system for providing comprehensive context
-- Includes documentation, examples, rules, patterns, and validation
-- Like writing a full screenplay with all the details
+### The Three Layers of Context Engineering
 
-### Why Context Engineering Matters
+1. **Explicit Rules** — What the AI must/must not do (constraints, security, style)
+2. **Project Knowledge** — Documentation, architecture, patterns, examples, error messages
+3. **Validation & Feedback** — How to measure success, what to do if things break
 
-1. **Reduces AI Failures**: Most agent failures aren't model failures - they're context failures
-2. **Ensures Consistency**: AI follows your project patterns and conventions
-3. **Enables Complex Features**: AI can handle multi-step implementations with proper context
-4. **Self-Correcting**: Validation loops allow AI to fix its own mistakes
-
+This repo implements all three: custom instructions, markdown docs, runnable scripts, and Squad team roles.
 
 
-## GitHub Copilot
+## GitHub Copilot: The Foundation
 
 [Awesome Copilot templates](https://github.com/github/awesome-copilot)
 
-- **[Customer Instructions](https://code.visualstudio.com/docs/copilot/copilot-customization#_custom-instructions)** : Define common guidelines for tasks like code generation, reviews, and commit messages. Describe how tasks should be performed. Note: Custom instructions only affect Copilot Chat (not inline code completions).
+### Custom Instructions
+
+Define common guidelines for tasks like code generation, reviews, and commit messages. Custom instructions describe **how** tasks should be performed in your repo.
+
+**Key Point**: Custom instructions only affect Copilot Chat (not inline code completions). Store them in `.github/copilot-instructions.md` at the repo root.
+
+- Specify project patterns and conventions
+- Define error handling, security, and testing expectations
+- Reference key files and documentation
+- Set tone and style for generated code
 
 ### Prompt Files
 
-Prompt files are reusable Markdown files (with `.prompt.md` extension) that define prompts for common tasks such as code generation, code review, or automation. They can include metadata (like mode, model, tools) and reference other files. Prompt files can be stored in `.github/prompts` (workspace) or in your user profile, and can be run directly in chat or attached to chat sessions. Use prompt files to:
+Prompt files are reusable Markdown (`.prompt.md` extension) that encode repeatable tasks: code generation, review, automation, etc. They can include:
+- Metadata (mode, model, tools)
+- References to custom instructions
+- Task-specific constraints and examples
+- Links to supporting docs
 
+**Use prompt files to:**
 - Standardize how tasks are described to Copilot
-- Reference custom instructions for consistency
-- Organize prompts by topic or workflow
+- Encapsulate multi-step workflows (test → lint → commit)
+- Make automation repeatable across team members
+- Store in `.github/prompts/` (workspace-level) or user profile
+
 See: [Prompt files (experimental)](https://code.visualstudio.com/docs/copilot/copilot-customization#_prompt-files-experimental)
 
-### Modes
+### Agent Mode & Orchestration
 
-Modes define how Copilot chat operates:
+**Modes** define how Copilot Chat operates:
 
 - **ask**: Standard Q&A or code generation
-- **edit**: Edit code based on instructions (e.g., refactor, fix bugs)
-- **agent**: Agent mode enables Copilot to use tools, access workspace context, and perform multi-step tasks
-You can specify the mode in prompt files or select it in the chat interface. Agent mode is especially powerful for automating complex workflows.
+- **edit**: Edit code based on instructions (refactor, fix, validate)
+- **agent**: Enables tool use, workspace access, and multi-step automation
+
+Agent mode is the foundation for complex workflows. It allows Copilot to:
+- Use external tools (linters, test runners, Git, etc.)
+- Access workspace context and files
+- Reason over multiple steps and recover from errors
+
+**This is where Squad enters the picture.**
+
+### Squad: Human-Led Agent Teams
+
+[Squad](https://github.com/bradygaster/squad) is a **Copilot-based orchestration layer** for human-led AI teams. It's experimental/alpha, but it demonstrates how to coordinate multiple Copilot agents on a single project.
+
+**What Squad Provides:**
+
+- **Persistent team state** in `.squad/` (member roles, decisions, chat history)
+- **Agent specialization** — each team member has a charter and expertise area
+- **Routing logic** — automatic handoffs between specialists
+- **Reviewer gates** — enforce quality and consistency
+- **Decision tracking** — document why architectural choices were made
+
+**How Squad Fits Into This Repo:**
+
+This repo is built with Squad patterns in mind:
+1. **Roles are explicit** — Copilot, aider, or Squad member knows their responsibility
+2. **Context is centralized** — Custom instructions, prompts, and docs live in the repo
+3. **Workflows are documented** — See `.squad/` for team decisions and agent charters
+4. **Handoffs are clear** — Each tool/agent knows when to pass work to the next step
+
+**Using Squad in AI-DrivenDevEnv:**
+
+If you're using Squad to work on this repo, check `.squad/decisions.md` for team decisions and `.squad/agents/*/charter.md` for role-specific guidance. Squad members (Farnsworth, Leela, Hermes, Amy, Bender) each own different aspects of the toolkit.
+
+See: [Squad README](https://github.com/bradygaster/squad)
 
 ### MCP Servers
 
-MCP (Model Context Protocol) servers extend Copilot’s capabilities by providing access to external tools, APIs, or data sources. In agent mode, Copilot can connect to one or more MCP servers to:
+MCP (Model Context Protocol) servers extend Copilot's capabilities by providing access to external tools, APIs, or data sources. In agent mode, Copilot can connect to MCP servers to:
 
 - Retrieve business data, documentation, or code context
 - Perform actions via APIs or custom tools
 - Integrate with enterprise systems
-To use MCP servers, configure them in your workspace and reference them in prompt files or chat sessions. See: [MCP Servers for agent mode](https://code.visualstudio.com/insider/mcp)
+
+To use MCP servers:
+1. Configure them in `.mcp/config.json` or VS Code settings
+2. Reference them in prompt files or chat sessions
+3. Let agent mode automatically invoke them
+
+See: [MCP Servers for agent mode](https://code.visualstudio.com/insider/mcp)
 
 ### Tool Sets
 
-Tool sets are collections of tools (such as linters, test runners, or custom scripts) that Copilot can use in agent mode. You can configure which tool sets are available in your workspace and reference them in prompt files. Tool sets enable Copilot to:
+Tool sets are collections of tools (linters, test runners, custom scripts) that Copilot can use in agent mode. Configure which tool sets are available in your workspace and reference them in prompt files.
 
+Tool sets enable Copilot to:
 - Run code analysis or tests
 - Automate repetitive tasks
-- Interact with your project’s build or deployment pipeline
-Configure tool sets in your workspace settings or via the chat interface for agent mode.
+- Interact with your project's build or deployment pipeline
+- Provide validation and feedback to the agent
+
+In this repo, tool sets include shell scripts in `linux/scripts/` and test runners that Copilot can invoke.
+
+
 
 ---
 
