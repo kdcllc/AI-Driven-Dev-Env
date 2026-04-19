@@ -1,6 +1,20 @@
 # Amy — History
 
-## Latest Session: 2026-06-26 Content Intake Workflow Hardening
+## Latest Session: 2026-06-26 Content Intake Cleanup (Leela's Approved Items)
+
+Executed three non-blocking cleanup tasks approved by Leela:
+
+1. **Deleted CONTENT_INTAKE_FIX_VALIDATION.md** — Validation checklist for the completed fix, no longer needed in the repo
+2. **Removed unused `COPILOT_TOKEN` env var** — Was defined but never used in the script; token is passed via `github-token` parameter
+3. **Kept useful setup docs** — Retained `CONTENT_INTAKE_SETUP.md` (current setup guide) and `.github/templates/README.md` (template disambiguation)
+
+**Outcome:** Branch is now clean and ready for merge. No stale or contradictory docs remain.
+
+**Status:** Complete. Changes committed to `feat/automatic-repo-summurization`.
+
+---
+
+## Session: 2026-06-26 Content Intake Workflow Hardening
 
 Fixed three critical issues in content-intake.yml after Leela's rejection of Bender's implementation:
 
