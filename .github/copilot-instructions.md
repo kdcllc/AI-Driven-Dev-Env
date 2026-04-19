@@ -9,6 +9,8 @@
 - **Key Directories:**
   - `linux/` — OS-specific setup docs and scripts
   - `win/` — Windows-specific setup docs and scripts
+  - `articles/` — Auto-generated article summaries (via issue intake)
+  - `repos/` — Auto-generated repo summaries (via issue intake)
   - `images/` — Project images
   - `.squad/` — Persistent team state (Squad members only)
   - Root scripts (e.g., `run-aider.sh`) — Main entry points
@@ -49,6 +51,18 @@
 - **No central config file** — settings are passed via env vars or script args
 - **Linux is primary target**; Windows support is secondary
 - **Context is everything** — When in doubt, add more docs, not fewer
+
+### Content Intake Pattern
+
+Articles and repos are added via GitHub issue templates (`content:article`, `content:repo`). The `content-intake.yml` workflow auto-routes these to Copilot, which:
+1. Reads the URL from the issue
+2. Creates a summary file using the template in `articles/.template.md` or `repos/.template.md`
+3. Updates `articles/index.md` or `repos/index.md` with the new entry
+4. Opens a PR for human review
+
+Repository setup matters here: keep `@copilot` in `.squad/team.md`, sync labels so `squad:copilot` exists, and configure `COPILOT_ASSIGN_TOKEN` if you want GitHub Actions to assign the Copilot coding agent automatically. Without that secret, the workflow should leave clear manual next steps instead of pretending the repo is zero-config.
+
+**Do NOT** modify `articles.md` or `code.md` from content intake — those are manually curated.
 
 ## Integration Points
 
@@ -99,6 +113,12 @@ cd AI-DrivenDevEnv
   - `.squad/decisions.md` — Active decisions and governance
   - `.squad/agents/{name}/charter.md` — Individual agent responsibilities and patterns
   - `.squad/routing.md` — How work flows between agents
+- **`articles/`** — Auto-generated article summaries
+  - `articles/.template.md` — Template for new article entries
+  - `articles/index.md` — Category-based article index
+- **`repos/`** — Auto-generated repo summaries
+  - `repos/.template.md` — Template for new repo entries
+  - `repos/index.md` — Category-based repo index
 
 ## Responsible AI & Security
 

@@ -1,0 +1,38 @@
+name: "📦 Add Repository"
+description: "Submit a GitHub repository to be summarized and added to the repo"
+title: "[Repo]: "
+labels: ["content:repo"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Repository URL
+      description: "Full GitHub URL (e.g., https://github.com/owner/repo)"
+      placeholder: "https://github.com/..."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: "Primary topic area"
+      options:
+        - Agent Frameworks & Design
+        - Multi-Agent Orchestration
+        - RAG & Search
+        - LLMs & Model Integration
+        - DevOps & CI/CD
+        - Developer Tooling
+        - Azure & Cloud
+        - MCP & Protocols
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Why is this useful?
+      description: "Optional — one or two sentences on why this repo matters"
+      placeholder: "This repo demonstrates..."
+    validations:
+      required: false

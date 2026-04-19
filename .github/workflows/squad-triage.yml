@@ -36,7 +36,7 @@ jobs:
             const lines = content.split('\n');
 
             // Check if @copilot is on the team
-            const hasCopilot = content.includes('🤖 Coding Agent');
+            const hasCopilot = content.includes('🤖 Coding Agent') || content.includes('@copilot');
             const copilotAutoAssign = content.includes('<!-- copilot-auto-assign: true -->');
 
             // Parse @copilot capability profile
@@ -121,6 +121,14 @@ jobs:
             let assignedMember = null;
             let triageReason = '';
             let copilotTier = null;
+
+            // Content intake issues are pre-routed — skip normal triage
+            const contentLabels = issue.labels.map(l => l.name);
+            if (contentLabels.includes('content:article') || contentLabels.includes('content:repo')) {
+              assignedMember = { name: '@copilot', role: 'Coding Agent' };
+              copilotTier = 'good-fit';
+              triageReason = '📥 Content intake — auto-routed to @copilot for summarization';
+            }
 
             // First, evaluate @copilot fit if enabled
             if (hasCopilot) {
