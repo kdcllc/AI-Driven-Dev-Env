@@ -16,7 +16,7 @@ _No entries yet._
 
 ### RAG & Search
 
-_No entries yet._
+- [open-webSearch](./Aas-ee-open-webSearch.md) — Multi-engine web search and content retrieval via MCP, CLI, or local daemon; no API keys required.
 
 ### LLMs & Model Integration
 
