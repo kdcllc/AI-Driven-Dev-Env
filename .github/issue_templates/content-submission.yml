@@ -1,0 +1,98 @@
+name: "📚 Add Article or Repository"
+description: "Submit a new article or repository for toolkit documentation"
+labels: ["content", "squad-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## New Content Submission
+        
+        Found an article, blog post, or repository that fits this toolkit? Submit it here. A Squad team member will create a PR with a summary, index entry, and updated documentation.
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: "Content Type"
+      description: "What are you submitting?"
+      options:
+        - "📄 Article (blog post, tutorial, guide)"
+        - "🔗 Repository (GitHub project, tool, sample)"
+    validations:
+      required: true
+
+  - type: url
+    id: url
+    attributes:
+      label: "URL"
+      description: "Direct link to the article or repository"
+      placeholder: "https://devblogs.microsoft.com/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: title
+    attributes:
+      label: "Title"
+      description: "Display title (10–60 characters)"
+      placeholder: "Building Effective Agents"
+      value: ""
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary (optional)"
+      description: "One-line description for index display (max 100 characters). Leave blank for Squad to extract."
+      placeholder: "Anthropic's guide to designing agentic systems with LLMs; foundational reading."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category / Use Case"
+      description: "Primary category for indexing"
+      options:
+        - "Agent Frameworks & Design"
+        - "Multi-Agent Orchestration"
+        - "Retrieval-Augmented Generation (RAG)"
+        - "AI Models & Fine-Tuning"
+        - "LLM Optimization & Cost"
+        - "Security & Compliance"
+        - "Observability & Monitoring"
+        - "Testing & Evaluation"
+        - "DevOps & Deployment"
+        - "Other / Multiple"
+    validations:
+      required: true
+
+  - type: textarea
+    id: tags
+    attributes:
+      label: "Tags (optional)"
+      description: "Comma-separated tags for filtering (e.g., Python, Azure, .NET, TypeScript)"
+      placeholder: "Python, Azure, LLMs"
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Why This Content?"
+      description: "Brief note on why this fits the toolkit (helps Squad prioritize)"
+      placeholder: "This complements our agentic AI patterns and shows real-world Squad integration..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Submission Checklist"
+      options:
+        - label: "I've verified the URL is live and accessible"
+          required: true
+        - label: "This content is not already in articles.md or code.md"
+          required: true
+        - label: "I understand a Squad member will create the PR (not me)"
+          required: false
