@@ -1,99 +1,93 @@
-# AI Driven Development Environment
-
-![I stand with Israel](./images/IStandWithIsrael.png)
+# AI-Driven Development Environment
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kdcllc/AI-DrivenDevEnv/master/LICENSE) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-## Hire Me
+A **documentation-first toolkit** for setting up agentic AI development environments on Linux and Windows. Includes scripts, configuration guides, and integration patterns for AI-driven development workflows powered by GitHub Copilot and [Squad](https://github.com/bradygaster/squad) (human-led AI agent orchestration).
 
-Please send [email](mailto:kingdavidconsulting@gmail.com) if you consider hiring me.
+**Quick Start:**  
+```bash
+git clone https://github.com/kdcllc/AI-DrivenDevEnv.git
+cd AI-DrivenDevEnv && chmod +x run-aider.sh && ./run-aider.sh
+```
 
-[![buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vyve0og)
+## What This Is
 
-## Give a Star! :star:
+A curated collection of:
+- **Setup scripts** for Linux (Ubuntu) and Windows dev tools
+- **Configuration guides** for AI models (local and cloud)
+- **Integration patterns** for Squad-based multi-agent workflows
+- **Reusable documentation** to onboard new developers quickly
 
-If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+## Core Directories
 
-
-## Description
-
-This repository contains scripts and documentation for setting up various development environments and tools, particularly on Linux systems. It includes automation scripts for installing dependencies, configuring environment variables, and running specific tools.
-
-## Features
-
-- **Automation Scripts**: Predefined scripts to automate the setup of various tools and environments.
-- **Documentation**: Detailed instructions for setting up different tools and technologies.
-- **Models**: Integration with AI models such as `qwen2.5-coder`, `llama3.1`, etc.
+- **`linux/`** – Linux setup guides and scripts (primary platform)
+- **`win/`** – Windows setup notes and tools
+- **`images/`** – Project diagrams and assets
+- **Root scripts** – Entry points like `run-aider.sh`
 
 ## Getting Started
 
 ### Prerequisites
 
-- Linux operating system (Ubuntu 18.04, 20.04, 22.04, 23.04, or 24.04)
-- Python 3.x
-- Git
+- **Linux:** Ubuntu 18.04, 20.04, 22.04, 23.04, or 24.04 (recommended)
+- **Windows:** Windows 11 with WSL2 or native tooling (see `win/README.md`)
+- Git, Python 3.x
 
-### Installation
+### Quick Setup (Linux)
 
-1. **Clone the Repository**
-
+1. **Clone and enter the directory:**
    ```bash
    git clone https://github.com/kdcllc/AI-DrivenDevEnv.git
    cd AI-DrivenDevEnv
    ```
 
-2. **Run the Setup Script**
-
+2. **Run the main setup script:**
    ```bash
    chmod +x run-aider.sh
    ./run-aider.sh
    ```
 
-3. **Configure Azure (Optional)**
-
-   If you need to configure Azure-related settings, use the `aider-az-setup.sh` script:
-
+3. **(Optional) Configure Azure:**
    ```bash
    chmod +x linux/scripts/aider-az-setup.sh
    ./linux/scripts/aider-az-setup.sh <api_key> <api_version> <api_base>
    ```
 
-4. **Install ODBC (Optional)**
-
-   If you need to install the Microsoft ODBC driver for SQL Server, use the `install-odbc.sh` script:
-
+4. **(Optional) Install ODBC for SQL Server:**
    ```bash
    sudo chmod +x linux/scripts/install-odbc.sh
    sudo ./linux/scripts/install-odbc.sh
    ```
 
-## Usage
+### Using Squad for Multi-Agent Workflows
 
-### Running Aider
+For teams building agentic AI systems, integrate [Squad](https://github.com/bradygaster/squad) alongside this toolkit:
 
-To run the main tool, simply execute:
+- Squad stores persistent multi-agent state in `.squad/` (repo-resident)
+- Pair Squad with `run-aider.sh` to bootstrap agent teams in your project
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for Squad integration patterns
 
-```bash
-./run-aider.sh
-```
+## Documentation
 
-This will start the `aider` tool with the configured models and settings.
+- **[linux/README.md](linux/README.md)** – Tool reference for Linux setup
+- **[win/README.md](win/README.md)** – Windows-specific notes and Python setup
+- **[articles.md](articles.md)** – Curated links on AI agents, RAG, and frameworks
+- **[code.md](code.md)** – Related repositories and projects
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** – Contribution guidelines and patterns
 
-### Accessing Documentation
+### Key Setup Guides
 
-For detailed instructions on setting up specific tools, refer to the documentation files in the `linux/` directory:
+See `linux/` for detailed docs on:
+- [open-webui.md](linux/open-webui.md) – Local LLM UI
+- [dotnetcore.md](linux/dotnetcore.md) – .NET toolchain
+- [pipx.md](linux/pipx.md) – Isolated Python tool management
+- [poetry.md](linux/poetry.md) – Python project dependencies
+- [pyenv.md](linux/pyenv.md) – Multiple Python versions
 
-- [open-webui.md](linux/open-webui.md)
-- [dotnetcore.md](linux/dotnetcore.md)
-- [pipx.md](linux/pipx.md)
-- [poetry.md](linux/poetry.md)
-- [pyenv.md](linux/pyenv.md)
+## About This Project
 
-## Contributing
+Maintained by [kdcllc](mailto:kingdavidconsulting@gmail.com).  
+If this toolkit helped you, consider [buying me a coffee](https://www.buymeacoffee.com/vyve0og) or giving it a star ⭐.
 
-We welcome contributions from the community! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+![I stand with Israel](./images/IStandWithIsrael.png)
 
