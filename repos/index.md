@@ -8,7 +8,7 @@ Summarized GitHub repositories related to AI-driven development. Each entry link
 
 ### Agent Frameworks & Design
 
-_No entries yet._
+- [AgentFrameworkToolkit](./rwjdk-AgentFrameworkToolkit.md) — Opinionated C# wrapper around Microsoft Agent Framework with provider-specific factories for OpenAI, Azure OpenAI, Anthropic, Google, Bedrock, and Ollama.
 
 ### Multi-Agent Orchestration
 
