@@ -40,4 +40,4 @@ _No entries yet._
 
 ### Other
 
-_No entries yet._
+- [GitHub MCP Server Registry](./github-mcp-server-registry.md) — Official GitHub-curated registry of 95+ MCP servers for connecting AI agents to external services and tools. (2026-04-20)
