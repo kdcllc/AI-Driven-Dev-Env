@@ -28,7 +28,7 @@ _No entries yet._
 
 ### Developer Tooling
 
-_No entries yet._
+- [dotnet-skillz](./davidfowl-dotnet-skillz.md) — Lightweight skill prompts for .NET CLI tools (ilspy-decompile) that teach coding agents to decompile assemblies and inspect .NET implementation details.
 
 ### Azure & Cloud
 
