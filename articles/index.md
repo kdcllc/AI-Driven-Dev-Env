@@ -9,7 +9,7 @@ Summarized articles on AI-driven development, agent frameworks, and developer to
 ### Agent Frameworks & Design
 
 - [Best of Both Worlds for Agentic Refactoring: GitHub Copilot + MicroVMs via Docker Sandbox](./best-of-both-worlds-agentic-refactoring-copilot-microvms-docker-sandbox.md) — Combining GitHub Copilot's agentic refactoring with MicroVM-based Docker Sandbox isolation for secure legacy modernization. (2026-04-19)
-- [Effective Context Engineering for AI Agents](./effective-context-engineering-ai-agents.md) — Anthropic's guide to dynamically managing LLM context windows in agentic loops using compaction, selective recall, and MCP. (2026-04-20)
+- [Effective Context Engineering for AI Agents](./effective-context-engineering-for-ai-agents.md) — Anthropic's guide to optimizing what tokens go into an LLM's context window across agent turns, covering compaction, summarization, and tool result management. (2026-04-20)
 
 ### Multi-Agent Orchestration
 
@@ -41,4 +41,4 @@ _No entries yet._
 
 ### Other
 
-_No entries yet._
+- [GitHub MCP Server Registry](./github-mcp-server-registry.md) — Official GitHub-curated registry of 95+ MCP servers for connecting AI agents to external services and tools. (2026-04-20)
