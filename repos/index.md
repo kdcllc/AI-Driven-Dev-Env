@@ -28,6 +28,7 @@ _No entries yet._
 
 ### Developer Tooling
 
+- [azure-rbac-least-calculator](./vjirovsky-azure-rbac-least-calculator.md) — Browser-based tool that identifies the minimal Azure built-in RBAC role for a given set of permissions, synced daily from the Azure REST APIs.
 - [dotnet-skillz](./davidfowl-dotnet-skillz.md) — Lightweight skill prompts for .NET CLI tools (ilspy-decompile) that teach coding agents to decompile assemblies and inspect .NET implementation details.
 
 ### Azure & Cloud
