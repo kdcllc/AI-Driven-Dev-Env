@@ -11,6 +11,7 @@ Summarized GitHub repositories related to AI-driven development. Each entry link
 - [AgentFrameworkToolkit](./rwjdk-AgentFrameworkToolkit.md) — Opinionated C# wrapper around Microsoft Agent Framework with provider-specific factories for OpenAI, Azure OpenAI, Anthropic, Google, Bedrock, and Ollama.
 - [agents-observability-tt202](./dsanchor-agents-observability-tt202.md) — Workshop and TechTalk repo for E2E observability on multi-agent systems using Microsoft Agent Framework and OpenTelemetry, with Application Insights and Power BI dashboards. (2026-04-20)
 - [skills](./mattpocock-skills.md) — Composable, model-agnostic slash-command skills for coding agents (Claude Code, Copilot, Codex) encoding engineering fundamentals: grilling sessions, TDD, architecture review, and more. (2026-04-29)
+- [github-azure-agentic-journeys](./DanWahlin-github-azure-agentic-journeys.md) — End-to-end agentic journeys for building and deploying apps to Azure using GitHub Copilot agents, Microsoft Foundry, and Bicep-generated infrastructure. (2026-04-29)
 
 ### Multi-Agent Orchestration
 
