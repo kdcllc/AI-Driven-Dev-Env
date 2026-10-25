@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kdcllc/AI-DrivenDevEnv/master/LICENSE) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-A **documentation-first toolkit** for setting up agentic AI development environments on Linux and Windows. Includes scripts, configuration guides, and integration patterns for AI-driven development workflows powered by GitHub Copilot and [Squad](https://github.com/bradygaster/squad) (human-led AI agent orchestration).
+A **documentation-first toolkit** for setting up agentic AI development environments on Linux and Windows. Includes scripts, configuration guides, and integration patterns for AI-driven development workflows powered by GitHub Copilot, Claude Code, and [agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit) (orchestrator/worker/evaluator multi-agent orchestration).
 
 **Quick Start:**  
 ```bash
@@ -15,7 +15,7 @@ cd AI-DrivenDevEnv && chmod +x run-aider.sh && ./run-aider.sh
 A curated collection of:
 - **Setup scripts** for Linux (Ubuntu) and Windows dev tools
 - **Configuration guides** for AI models (local and cloud)
-- **Integration patterns** for Squad-based multi-agent workflows
+- **Integration patterns** for agent-kit multi-agent workflows
 - **Reusable documentation** to onboard new developers quickly
 
 ## Core Directories
@@ -59,13 +59,16 @@ A curated collection of:
    sudo ./linux/scripts/install-odbc.sh
    ```
 
-### Using Squad for Multi-Agent Workflows
+### Multi-Agent Workflows with agent-kit
 
-For teams building agentic AI systems, integrate [Squad](https://github.com/bradygaster/squad) alongside this toolkit:
+This repo ships with [agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit) installed for Claude Code and GitHub Copilot:
 
-- Squad stores persistent multi-agent state in `.squad/` (repo-resident)
-- Pair Squad with `run-aider.sh` to bootstrap agent teams in your project
-- See [CONTRIBUTING.md](CONTRIBUTING.md) for Squad integration patterns
+- `/feature` — orchestrated change: plan → worker subagents → evaluator and QA gates
+- `/research` — investigation that produces a brief under `_memory/research/`
+- `_loop/loop.sh` — optional autonomous loop over `_memory/loop/backlog.md` (commits stay local)
+- See [ORCHESTRATION.md](ORCHESTRATION.md) for roles, phases, and model tiers
+
+To add agent-kit to your own project: `npx skills add kdcllc/skills --skill agent-kit`, then run `/agent-kit`.
 
 ## Documentation
 
@@ -84,7 +87,7 @@ Found a useful article or GitHub repo? Add it in seconds:
 1. **Article:** Open a [📰 Add Article](https://github.com/kdcllc/AI-DrivenDevEnv/issues/new?template=content-article.yml) issue — paste the URL and pick a category
 2. **Repo:** Open a [📦 Add Repository](https://github.com/kdcllc/AI-DrivenDevEnv/issues/new?template=content-repo.yml) issue — paste the URL and pick a category
 
-For zero-touch routing, keep `@copilot` in `.squad/team.md`, run the label sync workflow once, and configure the `COPILOT_ASSIGN_TOKEN` repository secret. If that secret is missing or agent assignment is unavailable, the workflow still posts the instructions and labels the issue, but a maintainer must assign `@copilot` manually or handle the intake by hand.
+A maintainer (or an agent run with `/feature`, or the Copilot coding agent assigned to the issue) turns the submission into a summary file and index entry, following the content-intake procedure stored in agent-kit memory (`_kit/memory.sh search "content intake"`).
 
 ### Key Setup Guides
 

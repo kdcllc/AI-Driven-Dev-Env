@@ -7,7 +7,7 @@ Thank you for contributing to a documentation-first toolkit for agentic AI devel
 - [Issues](#issues)
 - [Pull Requests](#pull-requests)
 - [Documentation & Scripts](#documentation--scripts)
-- [Squad Integration](#squad-integration)
+- [Agent Orchestration](#agent-orchestration)
 - [Code of Conduct](#code-of-conduct)
 - [License](#license)
 
@@ -41,13 +41,13 @@ We welcome PRs for bug fixes, new setup guides, scripts, and documentation.
 4. **Commit with clear messages:** Use present tense, e.g., "Add ODBC setup script for SQL Server."
 5. **Push to your fork and create a PR** against `master`.
 
-### Squad Integration
+### Agent Orchestration
 
-If your contribution involves [Squad](https://github.com/bradygaster/squad) patterns (multi-agent workflows, `.squad/` templates, agent charters):
+This repo uses [agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit) for multi-agent work. If your contribution touches the orchestration setup:
 
-- Place Squad-related docs and templates in `.squad/templates/` or `.squad/agents/`
-- Reference Squad patterns in setup guides where they add value
-- **Do not overstate Squadron capabilities** — describe it as human-led AI agent orchestration, GitHub Copilot–based, and experimental/alpha
+- **Do not hand-edit kit-emitted files** (listed in `orchestration-kit.manifest.json`) — change the answers and re-emit with `bash .agents/skills/agent-kit/bin/emit.sh --upgrade`
+- Record durable decisions as memory records (`_kit/memory.sh`), not ad-hoc notes
+- Describe agent output as AI-assisted; humans review and merge
 
 ### Review Process
 

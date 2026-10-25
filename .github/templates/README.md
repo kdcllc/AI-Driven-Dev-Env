@@ -25,5 +25,5 @@ The automated content intake system (triggered by `content:article` or `content:
 
 ## Related
 
-- **[Content Intake Workflow](../workflows/content-intake.yml)** — Automated summarization
+- **Content intake procedure** — stored in agent-kit memory (`_kit/memory.sh search "content intake"`)
 - **[Content Issue Templates](../ISSUE_TEMPLATE/)** — How users submit content

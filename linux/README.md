@@ -118,16 +118,22 @@ This sets up:
 - `AZURE_API_KEY`, `AZURE_API_VERSION`, `AZURE_API_BASE` in `~/.bashrc`
 - Alias `aider-az` that runs with `azure/gpt-4o`
 
-### Squad: Multi-Agent Copilot Workflows (Alpha)
+### agent-kit: Multi-Agent Workflows for Claude Code and Copilot
 
-Squad is an experimental, human-led multi-agent workflow built on GitHub Copilot. It orchestrates specialized agents (e.g., Platform Engineer, Architect, Code Reviewer) to tackle complex tasks. While primarily available in the GitHub Copilot CLI, Squad patterns and templates are documented here for reference.
+[agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit) installs an orchestrator/worker/evaluator system into a project: the orchestrator plans, worker subagents (implementer, test-writer, terminal, …) execute with fresh context, and skeptical evaluators verify before anything ships. One template source is compiled for Claude Code, Cursor, GitHub Copilot, and Codex.
 
-**When to use Squad:**
-- Complex project tasks requiring multiple specialist viewpoints
+```bash
+npx skills add kdcllc/skills --skill agent-kit   # project-local install
+# then, in Claude Code or Copilot chat:
+/agent-kit                                       # inspect, interview, emit
+```
+
+**When to use it:**
+- Complex project tasks that benefit from a plan → implement → verify cycle
 - Cross-cutting concerns (docs + infrastructure + code review)
-- Large refactorings that benefit from collaborative design
+- Unattended backlog work via the optional autonomous loop (`_loop/loop.sh`)
 
-See `.squad/` directory in your repo root for team structure and decisions.
+See `ORCHESTRATION.md` in this repo for the installed instance.
 
 ---
 
@@ -191,6 +197,7 @@ See [aider-chat.md](./aider-chat.md) for example configs.
 | **aider** | AI pair programmer | `pipx install aider-chat` | [aider-chat.md](./aider-chat.md) |
 | **gptme** | LLM agent & research | `pipx install gptme[browser]` | See Advanced Tools above |
 | **Ollama** | Run local LLMs | Curl (automatic in `run-aider.sh`) | [open-webui.md](./open-webui.md) |
+| **.NET / dotnetup** | .NET SDKs, managed by dotnetup | `dotnetup init --install-path ~/dotnet` | [dotnetcore.md](./dotnetcore.md) |
 
 ---
 
@@ -199,4 +206,4 @@ See [aider-chat.md](./aider-chat.md) for example configs.
 1. **For a quick local AI coding session:** Run `./run-aider.sh` (requires Ollama)
 2. **For Azure OpenAI:** Run `./linux/scripts/aider-az-setup.sh` with your credentials
 3. **For multiple projects:** Use `pyenv` + `poetry` to isolate dependencies per project
-4. **For team workflows:** Explore `.squad/` and configure agents for your use case
+4. **For team workflows:** Install agent-kit and run `/feature` for orchestrated changes

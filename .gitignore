@@ -1,9 +1,11 @@
 .aider*
 .env
-# Squad: ignore runtime state (logs, inbox, sessions)
-.squad/orchestration-log/
-.squad/log/
-.squad/decisions/inbox/
-.squad/sessions/
-# Squad: SubSquad activation file (local to this machine)
-.squad-workstream
+_kit/
+# Track the kit's helper scripts (memory CLI, spawn ledger) so fresh clones can use them.
+!_kit/
+_memory/.index/
+_memory/raw/
+_memory/work/
+_memory/loop/breaker-state.json
+_memory/loop/ledger.jsonl
+_memory/loop/attempts/

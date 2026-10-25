@@ -58,7 +58,7 @@ Entries are grouped under these headers. **Maintain alphabetical order within ea
 
 **Standard tags** (lowercase, no spaces):
 
-- **Frameworks/Platforms:** anthropic, azure, openai, semantic-kernel, squad, langchain, haystack, llamaindex
+- **Frameworks/Platforms:** anthropic, azure, openai, semantic-kernel, agent-kit, langchain, haystack, llamaindex
 - **Languages:** python, dotnet, csharp, javascript, typescript, java, golang
 - **Patterns:** agents, rag, multiagent, fine-tuning, prompt-engineering, reasoning, streaming
 - **Topics:** security, cost-optimization, observability, performance, testing
@@ -67,7 +67,7 @@ Use 2–5 tags per entry. Prefer framework/language over vague labels.
 
 ---
 
-## Approval Checklist (for Squad Members Creating PR)
+## Approval Checklist (for Maintainers and Agents Creating PR)
 
 - [ ] URL is live and accessible (test with `curl -I`)
 - [ ] Title matches source or is a sensible simplification (≤60 chars)

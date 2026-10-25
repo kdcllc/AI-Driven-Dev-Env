@@ -11,7 +11,7 @@ Curated links for building and understanding agentic AI systems. This toolkit is
 
 ## Multi-Agent Orchestration
 
-- **[Squad](https://github.com/bradygaster/squad)** – Human-led AI agent teams; integrates with GitHub Copilot. See this toolkit for integration patterns.
+- **[agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit)** – Orchestrator/worker/evaluator multi-agent system compiled for Claude Code, Cursor, GitHub Copilot, and Codex. Installed in this toolkit.
 
 ## Retrieval-Augmented Generation (RAG)
 
