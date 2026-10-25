@@ -22,6 +22,43 @@
 
 ```
 
+## Manage SDKs with `dotnetup`
+
+[dotnetup](https://devblogs.microsoft.com/dotnet/introducing-dotnetup/) is Microsoft's toolchain manager for user-level .NET installs (preview). Point it at `$HOME/dotnet` so the `.bashrc` lines above, `DOTNET_ROOT` and any `/usr/local/bin/dotnet` symlink keep working unchanged.
+
+Before switching, see what is installed today and what will be affected:
+
+```bash
+    ./linux/scripts/dotnet-inventory.sh [project-dir]   # read-only; project-dir is searched upward for global.json
+```
+
+dotnetup refuses to take over an install it did not create, so move the old one aside and let it rebuild the same path:
+
+```bash
+    mv ~/dotnet ~/dotnet.bak
+
+    ~/.dotnetup/dotnetup init --install-path ~/dotnet
+    ~/.dotnetup/dotnetup sdk install 10.0.100 9.0.203 8.0.404 --install-path ~/dotnet
+
+    # .bashrc and the symlink already point at ~/dotnet, so dotnetup only puts itself on PATH
+    ~/.dotnetup/dotnetup env set none
+
+    dotnetup list
+    dotnet --list-sdks && dotnet --list-runtimes
+```
+
+Rollback: `rm -rf ~/dotnet && mv ~/dotnet.bak ~/dotnet`. Delete `~/dotnet.bak` once builds and global tools work.
+
+Day to day:
+
+```bash
+    dotnetup update                                   # patch every tracked SDK
+    dotnetup sdk install 11 --install-path ~/dotnet   # add a new major version
+    dotnetup uninstall 9.0.2xx                        # remove an SDK and runtimes nothing else uses
+```
+
+Each SDK brings only its own runtime. A global tool that targets an older framework fails with "You must install or update .NET"; run it with `DOTNET_ROLL_FORWARD=Major`, or install that runtime with `dotnetup runtime install <version> --install-path ~/dotnet`.
+
 ## Issues
 
 ### Certificate issues
