@@ -37,7 +37,7 @@ Require evidence of `test-ladder` rungs 1–2 (new tests, then impacted tests).
 Do **not** fail a task for skipping rung 3 — the full suites run once at cycle end,
 after the final audit. The task's tests must exist, be meaningful (assert outcomes, would fail on
 regression), pass, and mock all external services. Run them yourself
-(`bash -n <changed-script.sh>`-style rung 1–2 run) — do not trust reported output.
+(`bash scripts/verify.sh --only <syntax|links|kit>`-style rung 1–2 run) — do not trust reported output.
 
 ## 5. Scope Discipline
 

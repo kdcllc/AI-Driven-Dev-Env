@@ -19,7 +19,7 @@ This toolkit curates articles and repositories via **team-driven submissions**. 
 - Wants to add it to this toolkit
 
 ### 2. User Files Issue
-- Opens `.github/issue_templates/content-submission.yml`
+- Opens `.github/ISSUE_TEMPLATE/content-article.yml` or `.github/ISSUE_TEMPLATE/content-repo.yml`
 - Fills in:
   - Content type (Article or Repository)
   - URL (required)
@@ -54,8 +54,9 @@ AI-DrivenDevEnv/
 ├── code.md                     # Repository entries (table format)
 ├── index.md                    # (Optional) Categorical index for discoverability
 ├── .github/
-│   ├── issue_templates/
-│   │   └── content-submission.yml  # User-facing submission form
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── content-article.yml     # Article submission form
+│   │   └── content-repo.yml        # Repository submission form
 │   └── templates/
 │       ├── ARTICLE_TEMPLATE.md     # Guidelines & approval checklist
 │       ├── REPOSITORY_TEMPLATE.md  # Guidelines & approval checklist
@@ -273,6 +274,6 @@ When reviewing a content submission issue and creating a PR:
 
 - **[ARTICLE_TEMPLATE.md](../templates/ARTICLE_TEMPLATE.md)** – Article format & approval rules
 - **[REPOSITORY_TEMPLATE.md](../templates/REPOSITORY_TEMPLATE.md)** – Repository format & approval rules
-- **[Issue Template: content-submission.yml](../issue_templates/content-submission.yml)** – User submission form
+- **[Issue Forms: content-article.yml](../ISSUE_TEMPLATE/content-article.yml)** and **[content-repo.yml](../ISSUE_TEMPLATE/content-repo.yml)** – User submission forms
 - **[articles.md](../../articles.md)** – Live article entries
 - **[code.md](../../code.md)** – Live repository entries

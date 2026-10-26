@@ -17,7 +17,7 @@ Rung 1  New tests          →  only tests created or rewritten in this change
 Rung 2  Impacted tests     →  existing tests that exercise the files you changed
             │ pass
             ▼
-Rung 3  Full suites        →  for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done
+Rung 3  Full suites        →  bash scripts/verify.sh && bash tests/verify/run.sh
             ONLY after every planned change in the cycle is applied
 ```
 
@@ -48,7 +48,7 @@ orchestrator's Phase 5 Quality Checks.
 Run only the test files or test ids you just added or substantially rewrote:
 
 ```bash
-bash -n <changed-script.sh>
+bash scripts/verify.sh --only <syntax|links|kit>
 ```
 
 If you wrote no new tests (implementation-only change), skip rung 1 and say so, then
@@ -78,7 +78,7 @@ rung 2 is empty (brand-new module), treat it as a no-op and say so.
 ## Rung 3 — Full suites (cycle end only)
 
 ```bash
-for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done
+bash scripts/verify.sh && bash tests/verify/run.sh
 ```
 
 Forbidden until rung 3: any bare full-suite invocation or pattern-less test run.

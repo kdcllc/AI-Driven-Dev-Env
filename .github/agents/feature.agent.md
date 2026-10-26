@@ -29,7 +29,7 @@ to `implementer`/`test-writer`; verification to `evaluator`. Read
 
 Spawn `terminal` for **any Bash or PowerShell command** whose raw output should not
 land here — pass the exact command, shell (`bash` or `pwsh`), and the result needed;
-it returns **only** that result. Never run `for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done` yourself — spawn
+it returns **only** that result. Never run `bash scripts/verify.sh && bash tests/verify/run.sh` yourself — spawn
 `terminal` for rung 3. Rungs 1–2 stay with `implementer`/`test-writer` when output is
 small; they may spawn `terminal` for noisy commands where the harness allows. Exception: `_kit/log-spawn.*` is run
 inline by the orchestrator (single-line output), never via `terminal`.
@@ -67,13 +67,13 @@ Decision gate: multiple approaches → present tradeoffs and **wait**.
 
 ### Supporting skills routing
 
-`test-ladder` every implement/test package — rungs 1–2; rung 3 via spawned `terminal` (never `for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done` inline).
+`test-ladder` every implement/test package — rungs 1–2; rung 3 via spawned `terminal` (never `bash scripts/verify.sh && bash tests/verify/run.sh` inline).
 
 | Layer | Skills | Rule files to cite |
 |-------|--------|--------------------|
 | scripts | — | `.github/copilot-instructions.md` |
-| guides | — | `.github/copilot-instructions.md` |
-| catalog | — | `.github/templates/CONTENT_SYSTEM_INDEX.md` |
+| guides | `add-setup-guide` | `.github/copilot-instructions.md` |
+| catalog | `content-intake` | `.github/templates/CONTENT_SYSTEM_INDEX.md` |
 | root docs | — | `.github/copilot-instructions.md` |
 
 ## Phase 3 — Goal evaluation (loop until PASS)
@@ -105,7 +105,7 @@ For each ready group (`reference/ready-groups.md`; `parallel: false` → one tas
 
 Launch `evaluator` in audit mode with matching rule files: every task's requirements, cross-task integration, regressions; if read-only, gather `terminal` evidence as Phase 4 step 3.
 **APPROVED** → Quality Checks (rung 3: full suite + lint/type) via spawned
-`terminal` with `for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done`. **ISSUES** → fix via executor + re-evaluate
+`terminal` with `bash scripts/verify.sh && bash tests/verify/run.sh`. **ISSUES** → fix via executor + re-evaluate
 (rungs 1–2), re-audit (max 3); re-audits follow `reference/fix-cycles.md` § Provenance.
 
 **Quality Checks failure**: non-zero exit with truncated excerpt ⇒ **Read** the log path

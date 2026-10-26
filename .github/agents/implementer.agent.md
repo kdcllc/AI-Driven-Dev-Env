@@ -23,7 +23,7 @@ guessing.
 - **Rules before placement.** Before creating or moving a file, read every path-scoped rule file in "Files to Read" whose globs match it; if no listed rule covers an area where you create files, say so in your report.
 - **Reuse shared infrastructure.** AI-DrivenDevEnv has shared infrastructure: the catalog templates (`articles/.template.md`, `repos/.template.md`, `.github/templates/`), the issue forms in `.github/ISSUE_TEMPLATE/`, and existing helper scripts in `linux/scripts/` — reuse them. Never re-implement what they already provide.
 - **Verify as you go.** Climb rungs 1–2 of the `test-ladder` skill: new tests
-  first, then impacted tests (`bash -n <changed-script.sh>`-style runs). Never run
+  first, then impacted tests (`bash scripts/verify.sh --only <syntax|links|kit>`-style runs). Never run
   rung 3 (the full suites) — that runs once at cycle
   end, after the final audit. For a noisy Bash or PowerShell command whose raw
   output you do not need, spawn `terminal` with the exact command and the result

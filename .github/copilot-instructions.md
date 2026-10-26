@@ -119,6 +119,12 @@ cd AI-DrivenDevEnv
 
 **Need help?** Check the README files in `linux/` or `win/`, or read `ai-coding.md` for deeper context engineering guidance.
 
+## Verify and Reusable Prompts
+
+- **Before finishing**, run `bash scripts/verify.sh` (offline: syntax, links, kit integrity). Narrow with `--only syntax|links|kit`.
+- **Reusable prompts** in `.github/prompts/`: `content-intake.prompt.md` (process a content-intake issue) and `add-setup-guide.prompt.md` (add a Linux setup guide for a tool). Claude Code equivalents are the skills `content-intake` and `add-setup-guide`; `AGENTS.md` gives the same orientation for other agents.
+- Do not hand-edit kit-managed files listed in `orchestration-kit.manifest.json`.
+
 ## Orchestration
 Feature work runs through the orchestrator/worker/evaluator system — see ORCHESTRATION.md. Start features with the `feature` agent.
 <!-- orchestration-kit:pointer -->

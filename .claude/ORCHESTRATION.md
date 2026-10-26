@@ -138,6 +138,8 @@ non-independent and disclosed to the user and in the PR draft).
 | `test-ladder` | Supporting | New tests → impacted tests mid-cycle; full suites (rung 3) only at cycle end |
 | `align-docs` | Coordinator | Phase 6: evaluator-gated sync of all docs to shipped code (docs-only) |
 | `ship-pr` | Delivery | Phase 7: draft + create the PR/MR on the project's forge, or hand over (approval-gated) |
+| `content-intake` | Supporting | Process a content-intake issue: add the article or repo summary to `articles/` or `repos/` and update the index (project) |
+| `add-setup-guide` | Supporting | Add a Linux setup guide under `linux/` with an optional idempotent install script and README entry (project) |
 
 > `goal-criteria`, `task-criteria`, `qa-criteria`, `test-ladder`, `align-docs`,
 > `ship-pr`, and `auto-loop` set `disable-model-invocation: true` — they load via
@@ -921,6 +923,11 @@ _memory/loop/                   # Tracked loop ledgers and archive (breaker-stat
 _memory/.index/ · _memory/raw/  # Derived index; capture output, ledgers and drafts (gitignored)
 _loop/{loop.sh,loop.ps1,breaker.sh,breaker.ps1,PROMPT.md}  # Headless loop driver (if enabled)
 ```
+```
+.claude/skills/
+├── content-intake/SKILL.md   # project skill (not kit-managed): process a content-intake issue
+└── add-setup-guide/SKILL.md  # project skill (not kit-managed): add a Linux setup guide
+```
 
 ### Critical Reference Files
 
@@ -937,7 +944,11 @@ Scoped-rule delivery to subagents varies by harness; in a Claude Code field obse
 
 | Step | Command |
 |------|---------|
-| Tests (rung 3 — full suites, cycle end only) | for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done |
+| Repo checks (links, syntax, kit) | `bash scripts/verify.sh` |
+
+| Step | Command |
+|------|---------|
+| Tests (rung 3 — full suites, cycle end only) | bash scripts/verify.sh && bash tests/verify/run.sh |
 
 Don't invent commands for tools that aren't configured. Tests must mock all external
 service/network access. Do not run rung 3 during Phase 4 tasks or TDD loops — except
@@ -955,8 +966,8 @@ session.
 
 **Tests** (staged ladder — see `test-ladder`):
 ```bash
-bash -n <changed-script.sh>     # rungs 1–2, during Phase 4 / TDD loops
-for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done         # rung 3 — cycle end only
+bash scripts/verify.sh --only <syntax|links|kit>     # rungs 1–2, during Phase 4 / TDD loops
+bash scripts/verify.sh && bash tests/verify/run.sh         # rung 3 — cycle end only
 ```
 
 **Orchestration log** (orchestrator runs these inline; Windows outside Git Bash: `_kit\log-spawn.cmd` — Git for Windows required):

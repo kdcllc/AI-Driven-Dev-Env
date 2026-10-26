@@ -148,7 +148,7 @@ schema/contract changes, anything risky.>
 
 ## Testing
 - <How it was verified. Cycle-end gate is rung 3 of the test-ladder:
-  for f in run-aider.sh linux/scripts/*.sh; do bash -n "$f" || exit 1; done.>
+  bash scripts/verify.sh && bash tests/verify/run.sh.>
 
 ## Notes for reviewers
 <Optional: call-outs, follow-ups, open questions. Omit if empty.>

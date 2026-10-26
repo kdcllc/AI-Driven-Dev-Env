@@ -21,11 +21,11 @@ test is a failed task.
 - **Mock all external services.** No test may hit the network or a live service.
 There is no application code to mock. Scripts that touch the network or the system (apt, curl, pip, Azure) are verified with `bash -n` and by reading them — never execute installers or `sudo` during tests. Link checks may use `curl -sI`.
 - **Follow the project's test conventions.** Read existing tests first and match their
-  structure, naming, and fixture usage. Test framework(s): not configured (bash -n syntax checks only).
+  structure, naming, and fixture usage. Test framework(s): bash (scripts/verify.sh checks; tests/verify/run.sh fixture tests).
 - **Use the file-read tool.** Where your harness has a file-read tool, read files with it rather than `cat`/`head`/`sed` through the shell (running a criterion's or test's command is still fine); at least one harness loads path-scoped rules only on file-read tool reads.
 - **Rules before placement.** Before creating or moving a file, read every path-scoped rule file in "Files to Read" whose globs match it; if no listed rule covers an area where you create files, say so in your report.
 - **Run what you write.** Climb rungs 1–2 of the `test-ladder` skill only
-  (`bash -n <changed-script.sh>`-style runs); rung 3 (full suites) runs at cycle end,
+  (`bash scripts/verify.sh --only <syntax|links|kit>`-style runs); rung 3 (full suites) runs at cycle end,
   not here. Every test you deliver must be green. For a noisy Bash or PowerShell
   command whose raw output you do not need, spawn `terminal` with the exact
   command and the result you want back (where the harness lets this agent spawn —

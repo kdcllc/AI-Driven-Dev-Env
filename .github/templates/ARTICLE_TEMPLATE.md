@@ -82,5 +82,5 @@ Use 2–5 tags per entry. Prefer framework/language over vague labels.
 
 ## Related
 
-- **[code.md](../code.md)** – Repository entries (similar rules, table format)
-- **[Submission Issue Template](../issue_templates/content-submission.yml)** – How users submit content
+- **[code.md](../../code.md)** – Repository entries (similar rules, table format)
+- **[Article Submission Form](../ISSUE_TEMPLATE/content-article.yml)** and **[Repository Submission Form](../ISSUE_TEMPLATE/content-repo.yml)** – How users submit content

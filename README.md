@@ -79,6 +79,7 @@ To add agent-kit to your own project: `npx skills add kdcllc/skills --skill agen
 - **[code.md](code.md)** – Related repositories and projects
 - **[repos/index.md](repos/index.md)** – Auto-generated repo summaries (by category)
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** – Contribution guidelines and patterns
+- **[Set up your own repo for agentic development](ai-coding.md#set-up-your-own-repo-for-agentic-development)** – Step-by-step walkthrough using this repo's files as examples
 
 ### Adding Articles & Repos
 

@@ -57,7 +57,7 @@ Prompt files are reusable Markdown (`.prompt.md` extension) that encode repeatab
 - Standardize how tasks are described to Copilot
 - Encapsulate multi-step workflows (test → lint → commit)
 - Make automation repeatable across team members
-- Store in `.github/prompts/` (workspace-level) or user profile
+- Store in `.github/prompts/` (workspace-level) or user profile. This repo's examples: [`add-setup-guide.prompt.md`](.github/prompts/add-setup-guide.prompt.md) and [`content-intake.prompt.md`](.github/prompts/content-intake.prompt.md)
 
 See: [Prompt files (experimental)](https://code.visualstudio.com/docs/copilot/copilot-customization#_prompt-files-experimental)
 
@@ -132,6 +132,17 @@ In this repo, tool sets include shell scripts in `linux/scripts/` and test runne
 
 
 ---
+
+## Set up your own repo for agentic development
+
+This repo is a worked example: every step below points at the file here that you can copy and adapt.
+
+1. **Install agent-kit.** Run `npx skills add kdcllc/skills --skill agent-kit`, then `/agent-kit` in your harness. It generates the subagents, the `/feature` and `/research` skills, and an `ORCHESTRATION.md`. Example: [ORCHESTRATION.md](ORCHESTRATION.md) and [orchestration-kit.manifest.json](orchestration-kit.manifest.json), which records the install answers.
+2. **Write agent context files.** Give every harness the same ground truth: [AGENTS.md](AGENTS.md) (tool-neutral), [CLAUDE.md](CLAUDE.md) (Claude Code), and [.github/copilot-instructions.md](.github/copilot-instructions.md) (GitHub Copilot). Keep them short and point at the same verification command.
+3. **Add reusable prompts and skills.** A repeatable job gets a Copilot prompt file and a matching Claude skill. Example, content intake: [.github/prompts/content-intake.prompt.md](.github/prompts/content-intake.prompt.md) and [.claude/skills/content-intake/SKILL.md](.claude/skills/content-intake/SKILL.md). A second job, adding a Linux setup guide: [.github/prompts/add-setup-guide.prompt.md](.github/prompts/add-setup-guide.prompt.md) and [.claude/skills/add-setup-guide/SKILL.md](.claude/skills/add-setup-guide/SKILL.md).
+4. **Add one local verify script.** A single command agents and humans both run before finishing. Example: [scripts/verify.sh](scripts/verify.sh), run as `bash scripts/verify.sh` or `bash scripts/verify.sh --only <syntax|links|kit>`.
+5. **Add a thin CI workflow.** CI should only call the same script, so local and CI results match. Example: [.github/workflows/verify.yml](.github/workflows/verify.yml).
+6. **Re-emit the kit so its full-suite command is the verify script.** Put the verify command in the kit's answers (here, `FULL_TEST_COMMAND` and `TARGETED_TEST_COMMAND` in [orchestration-kit.manifest.json](orchestration-kit.manifest.json)), then re-run the emitter with `bash .agents/skills/agent-kit/bin/emit.sh --answers <file> --upgrade`. Never hand-edit kit-generated files; the kit check in `scripts/verify.sh` catches hand edits.
 
 ## Microsoft-Specific Guidance for AI-Assisted Coding
 

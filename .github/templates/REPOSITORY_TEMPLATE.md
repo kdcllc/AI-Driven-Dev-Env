@@ -93,5 +93,5 @@ Is it directly used by this toolkit (agent-kit, samples)?
 
 ## Related
 
-- **[articles.md](../articles.md)** – Article entries (similar rules, markdown list format)
-- **[Submission Issue Template](../issue_templates/content-submission.yml)** – How users submit content
+- **[articles.md](../../articles.md)** – Article entries (similar rules, markdown list format)
+- **[Article Submission Form](../ISSUE_TEMPLATE/content-article.yml)** and **[Repository Submission Form](../ISSUE_TEMPLATE/content-repo.yml)** – How users submit content
