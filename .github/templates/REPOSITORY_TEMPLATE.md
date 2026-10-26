@@ -24,7 +24,7 @@ Each repository entry in `code.md` appears as a table row:
 ### Example
 
 ```markdown
-| [Squad](https://github.com/bradygaster/squad) | Human-led AI agent teams using GitHub Copilot | Multi-agent orchestration, persistent state, `.squad/` templates |
+| [agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit) | Orchestrator/worker/evaluator multi-agent system for Claude Code, Cursor, Copilot, and Codex | Multi-agent orchestration, evaluator gates, `_memory/` project memory |
 ```
 
 ---
@@ -35,7 +35,7 @@ Each repository entry in `code.md` appears as a table row:
 
 Group repositories under these headers; keep entries alphabetical **within each section** by repo name:
 
-1. **Core to This Toolkit** – Squad, samples, reference implementations
+1. **Core to This Toolkit** – agent-kit, samples, reference implementations
 2. **Agent Frameworks & Orchestration** – LangChain, semantic-kernel, etc.
 3. **Python Agent & RAG Stacks** – FastAPI, Langchain, Haystack, etc.
 4. **Dotnet / C# Stacks** – Semantic Kernel, MS AI extensions, etc.
@@ -45,7 +45,7 @@ Group repositories under these headers; keep entries alphabetical **within each 
 ### Placement Decision Tree
 
 ```
-Is it directly used by this toolkit (Squad, samples)?
+Is it directly used by this toolkit (agent-kit, samples)?
   YES → Core to This Toolkit
   NO  → Is it a multi-language framework or multi-agent pattern?
           YES → Agent Frameworks & Orchestration
@@ -60,7 +60,7 @@ Is it directly used by this toolkit (Squad, samples)?
 
 ---
 
-## Approval Checklist (for Squad Members Creating PR)
+## Approval Checklist (for Maintainers and Agents Creating PR)
 
 - [ ] Repository is public and active (checked GitHub last commit ≤ 6 months ago)
 - [ ] Name matches GitHub repo exactly; no extra branding
@@ -93,5 +93,5 @@ Is it directly used by this toolkit (Squad, samples)?
 
 ## Related
 
-- **[articles.md](../articles.md)** – Article entries (similar rules, markdown list format)
-- **[Submission Issue Template](../issue_templates/content-submission.yml)** – How users submit content
+- **[articles.md](../../articles.md)** – Article entries (similar rules, markdown list format)
+- **[Article Submission Form](../ISSUE_TEMPLATE/content-article.yml)** and **[Repository Submission Form](../ISSUE_TEMPLATE/content-repo.yml)** – How users submit content

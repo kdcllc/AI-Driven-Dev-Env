@@ -1,0 +1,21 @@
+name: Verify
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run verification script
+        run: bash scripts/verify.sh
+      - name: Run verification tests
+        run: bash tests/verify/run.sh

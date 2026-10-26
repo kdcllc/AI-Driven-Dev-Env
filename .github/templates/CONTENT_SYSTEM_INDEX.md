@@ -6,7 +6,7 @@
 
 ## Overview
 
-This toolkit curates articles and repositories via **team-driven submissions**. Users discover useful content and file an issue; a Squad member creates a PR with a properly formatted entry, category placement, and index updates.
+This toolkit curates articles and repositories via **team-driven submissions**. Users discover useful content and file an issue; a maintainer or agent creates a PR with a properly formatted entry, category placement, and index updates.
 
 **Goal:** Scale cleanly to 100+ entries without broken links, outdated categories, or merge conflicts.
 
@@ -19,7 +19,7 @@ This toolkit curates articles and repositories via **team-driven submissions**. 
 - Wants to add it to this toolkit
 
 ### 2. User Files Issue
-- Opens `.github/issue_templates/content-submission.yml`
+- Opens `.github/ISSUE_TEMPLATE/content-article.yml` or `.github/ISSUE_TEMPLATE/content-repo.yml`
 - Fills in:
   - Content type (Article or Repository)
   - URL (required)
@@ -28,9 +28,9 @@ This toolkit curates articles and repositories via **team-driven submissions**. 
   - Optional: Summary, Tags, Context
 - Submits with label `content`
 
-### 3. Squad Member Triages & Creates PR
+### 3. Maintainer or Agent Triages & Creates PR
 - Reviews issue for completeness and relevance
-- Extracts/refines summary if not provided (Squad member adds value, not just copy-paste)
+- Extracts/refines summary if not provided (the reviewer adds value, not just copy-paste)
 - Verifies URL is live and no duplicate exists
 - Creates PR with:
   - Entry added to `articles.md` or `code.md`
@@ -54,8 +54,9 @@ AI-DrivenDevEnv/
 ├── code.md                     # Repository entries (table format)
 ├── index.md                    # (Optional) Categorical index for discoverability
 ├── .github/
-│   ├── issue_templates/
-│   │   └── content-submission.yml  # User-facing submission form
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── content-article.yml     # Article submission form
+│   │   └── content-repo.yml        # Repository submission form
 │   └── templates/
 │       ├── ARTICLE_TEMPLATE.md     # Guidelines & approval checklist
 │       ├── REPOSITORY_TEMPLATE.md  # Guidelines & approval checklist
@@ -100,7 +101,7 @@ Within each category section, entries are sorted **A–Z by title** (first lette
 9. DevOps & Deployment
 10. AI Blogs & Journals
 
-**Do not rename, reorder, or add categories** without team consensus (use `.squad/decisions/inbox/` to propose).
+**Do not rename, reorder, or add categories** without maintainer agreement (propose it in an issue, then record the decision with `_kit/memory.sh`).
 
 ---
 
@@ -214,7 +215,7 @@ Build a simple script (Python/Node) that:
 
 4. **Commit:**
    - Message: `docs: add [article|repository] "[Title]" to [Category]`
-   - Include Co-authored-by trailer if from Squad
+   - Include Co-authored-by trailer if agent-generated
 
 ### Updating an Existing Entry
 
@@ -234,7 +235,7 @@ Build a simple script (Python/Node) that:
 
 **Process:**
 - File an issue with reason
-- Squad consensus required (use `.squad/decisions/inbox/` if needed)
+- Maintainer agreement required (propose in an issue)
 - Commit message: `docs: remove [entry] — [reason]`
 
 ---
@@ -244,8 +245,8 @@ Build a simple script (Python/Node) that:
 | Issue | Root Cause | Prevention |
 |-------|-----------|-----------|
 | Alphabetical chaos | No clear rule | Enforce A–Z by title within section; review PRs for order |
-| Duplicate entries | Not checking both files | Submission form asks for dedup check; Squad double-checks |
-| Broken links | Dead or moved URLs | Squad tests URL with curl or browser before merge |
+| Duplicate entries | Not checking both files | Submission form asks for dedup check; reviewer double-checks |
+| Broken links | Dead or moved URLs | Reviewer tests URL with curl or browser before merge |
 | Category creep | New categories added ad-hoc | Gate category changes via team decisions |
 | Tags sprawl | No registry | Use predefined Tag Registry; reject non-standard tags in review |
 | Long summaries | No character limit | Submission form and templates enforce 120 char max |
@@ -253,7 +254,7 @@ Build a simple script (Python/Node) that:
 
 ---
 
-## Squad Member Checklist
+## Reviewer Checklist
 
 When reviewing a content submission issue and creating a PR:
 
@@ -273,6 +274,6 @@ When reviewing a content submission issue and creating a PR:
 
 - **[ARTICLE_TEMPLATE.md](../templates/ARTICLE_TEMPLATE.md)** – Article format & approval rules
 - **[REPOSITORY_TEMPLATE.md](../templates/REPOSITORY_TEMPLATE.md)** – Repository format & approval rules
-- **[Issue Template: content-submission.yml](../issue_templates/content-submission.yml)** – User submission form
+- **[Issue Forms: content-article.yml](../ISSUE_TEMPLATE/content-article.yml)** and **[content-repo.yml](../ISSUE_TEMPLATE/content-repo.yml)** – User submission forms
 - **[articles.md](../../articles.md)** – Live article entries
 - **[code.md](../../code.md)** – Live repository entries

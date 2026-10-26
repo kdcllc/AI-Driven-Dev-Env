@@ -1,5 +1,6 @@
-# Squad: union merge for append-only team state files
-.squad/decisions.md merge=union
-.squad/agents/*/history.md merge=union
-.squad/log/** merge=union
-.squad/orchestration-log/** merge=union
+_memory/** text eol=lf
+*.cmd -text
+_memory/loop/LEARNINGS.md merge=union
+_memory/loop/ESCALATIONS.md merge=union
+*.sh text eol=lf
+*.ps1 text eol=lf

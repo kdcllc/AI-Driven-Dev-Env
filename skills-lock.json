@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-kit": {
+      "source": "kdcllc/skills",
+      "sourceType": "github",
+      "skillPath": "skills/agent-kit/SKILL.md",
+      "computedHash": "9e8e5715c3fb91e818f75034f96f47d4b918bc17496344c4b1613b033012cb4a"
+    }
+  }
+}

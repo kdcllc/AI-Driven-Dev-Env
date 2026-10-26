@@ -19,7 +19,7 @@
 2. **Ensures Consistency**: Explicit patterns, conventions, and rules let AI follow your project's style and architecture.
 3. **Enables Complex Workflows**: Multi-step implementations, tool use, and error recovery all depend on rich context.
 4. **Self-Correcting Loops**: With proper context about validation and expectations, agents can detect and fix their own mistakes.
-5. **Scales Across Teams**: When context is explicit, any agent (Copilot, aider, Squad team member) can pick up where another left off.
+5. **Scales Across Teams**: When context is explicit, any agent (Copilot, Claude Code, aider, or an agent-kit subagent) can pick up where another left off.
 
 ### The Three Layers of Context Engineering
 
@@ -27,7 +27,7 @@
 2. **Project Knowledge** — Documentation, architecture, patterns, examples, error messages
 3. **Validation & Feedback** — How to measure success, what to do if things break
 
-This repo implements all three: custom instructions, markdown docs, runnable scripts, and Squad team roles.
+This repo implements all three: custom instructions, markdown docs, runnable scripts, and agent-kit roles.
 
 
 ## GitHub Copilot: The Foundation
@@ -57,7 +57,7 @@ Prompt files are reusable Markdown (`.prompt.md` extension) that encode repeatab
 - Standardize how tasks are described to Copilot
 - Encapsulate multi-step workflows (test → lint → commit)
 - Make automation repeatable across team members
-- Store in `.github/prompts/` (workspace-level) or user profile
+- Store in `.github/prompts/` (workspace-level) or user profile. This repo's examples: [`add-setup-guide.prompt.md`](.github/prompts/add-setup-guide.prompt.md) and [`content-intake.prompt.md`](.github/prompts/content-intake.prompt.md)
 
 See: [Prompt files (experimental)](https://code.visualstudio.com/docs/copilot/copilot-customization#_prompt-files-experimental)
 
@@ -74,33 +74,33 @@ Agent mode is the foundation for complex workflows. It allows Copilot to:
 - Access workspace context and files
 - Reason over multiple steps and recover from errors
 
-**This is where Squad enters the picture.**
+**This is where agent-kit enters the picture.**
 
-### Squad: Human-Led Agent Teams
+### agent-kit: Orchestrator, Workers, Evaluators
 
-[Squad](https://github.com/bradygaster/squad) is a **Copilot-based orchestration layer** for human-led AI teams. It's experimental/alpha, but it demonstrates how to coordinate multiple Copilot agents on a single project.
+[agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit) is a multi-agent orchestration system compiled from one template source for Claude Code, Cursor, GitHub Copilot, and Codex. The main session acts as the **orchestrator**; it plans and delegates, but does not do the work itself.
 
-**What Squad Provides:**
+**What agent-kit Provides:**
 
-- **Persistent team state** in `.squad/` (member roles, decisions, chat history)
-- **Agent specialization** — each team member has a charter and expertise area
-- **Routing logic** — automatic handoffs between specialists
-- **Reviewer gates** — enforce quality and consistency
-- **Decision tracking** — document why architectural choices were made
+- **Worker subagents with fresh context** — `implementer`, `test-writer`, `evidence-collector`, `terminal`
+- **Skeptical evaluators** — `evaluator` and `qa-evaluator` gate every change; `diagnostician` handles repeated failures
+- **Tiered model pins** — frontier models decide and verify, light models execute, a fast model runs commands
+- **Workflows as skills** — `/feature` (plan → implement → verify → ship PR) and `/research` (briefs under `_memory/research/`)
+- **Project memory** — durable records in `_memory/`, searchable with `_kit/memory.sh`
+- **Optional autonomous loop** — `_loop/loop.sh` works a backlog unattended; commits stay local
 
-**How Squad Fits Into This Repo:**
+**How agent-kit Fits Into This Repo:**
 
-This repo is built with Squad patterns in mind:
-1. **Roles are explicit** — Copilot, aider, or Squad member knows their responsibility
-2. **Context is centralized** — Custom instructions, prompts, and docs live in the repo
-3. **Workflows are documented** — See `.squad/` for team decisions and agent charters
-4. **Handoffs are clear** — Each tool/agent knows when to pass work to the next step
+1. **Roles are explicit** — each subagent has one job and a fixed tool allowlist
+2. **Context is centralized** — `ORCHESTRATION.md`, custom instructions, skills, and memory live in the repo
+3. **Verification is separate from execution** — the agent that wrote a change never grades it
+4. **Handoffs are clear** — context packages are complete on first send, so subagents need no shared state
 
-**Using Squad in AI-DrivenDevEnv:**
+**Using agent-kit in AI-DrivenDevEnv:**
 
-If you're using Squad to work on this repo, check `.squad/decisions.md` for team decisions and `.squad/agents/*/charter.md` for role-specific guidance. Squad members (Farnsworth, Leela, Hermes, Amy, Bender) each own different aspects of the toolkit.
+Start with `/feature <what you want>` in Claude Code or Copilot chat. Read `ORCHESTRATION.md` for phases and gates, and search past decisions with `_kit/memory.sh search <topic>`.
 
-See: [Squad README](https://github.com/bradygaster/squad)
+See: [agent-kit guide](https://github.com/kdcllc/skills/tree/master/docs/agent-kit/guide)
 
 ### MCP Servers
 
@@ -132,6 +132,17 @@ In this repo, tool sets include shell scripts in `linux/scripts/` and test runne
 
 
 ---
+
+## Set up your own repo for agentic development
+
+This repo is a worked example: every step below points at the file here that you can copy and adapt.
+
+1. **Install agent-kit.** Run `npx skills add kdcllc/skills --skill agent-kit`, then `/agent-kit` in your harness. It generates the subagents, the `/feature` and `/research` skills, and an `ORCHESTRATION.md`. Example: [ORCHESTRATION.md](ORCHESTRATION.md) and [orchestration-kit.manifest.json](orchestration-kit.manifest.json), which records the install answers.
+2. **Write agent context files.** Give every harness the same ground truth: [AGENTS.md](AGENTS.md) (tool-neutral), [CLAUDE.md](CLAUDE.md) (Claude Code), and [.github/copilot-instructions.md](.github/copilot-instructions.md) (GitHub Copilot). Keep them short and point at the same verification command.
+3. **Add reusable prompts and skills.** A repeatable job gets a Copilot prompt file and a matching Claude skill. Example, content intake: [.github/prompts/content-intake.prompt.md](.github/prompts/content-intake.prompt.md) and [.claude/skills/content-intake/SKILL.md](.claude/skills/content-intake/SKILL.md). A second job, adding a Linux setup guide: [.github/prompts/add-setup-guide.prompt.md](.github/prompts/add-setup-guide.prompt.md) and [.claude/skills/add-setup-guide/SKILL.md](.claude/skills/add-setup-guide/SKILL.md).
+4. **Add one local verify script.** A single command agents and humans both run before finishing. Example: [scripts/verify.sh](scripts/verify.sh), run as `bash scripts/verify.sh` or `bash scripts/verify.sh --only <syntax|links|kit>`.
+5. **Add a thin CI workflow.** CI should only call the same script, so local and CI results match. Example: [.github/workflows/verify.yml](.github/workflows/verify.yml).
+6. **Re-emit the kit so its full-suite command is the verify script.** Put the verify command in the kit's answers (here, `FULL_TEST_COMMAND` and `TARGETED_TEST_COMMAND` in [orchestration-kit.manifest.json](orchestration-kit.manifest.json)), then re-run the emitter with `bash .agents/skills/agent-kit/bin/emit.sh --answers <file> --upgrade`. Never hand-edit kit-generated files; the kit check in `scripts/verify.sh` catches hand edits.
 
 ## Microsoft-Specific Guidance for AI-Assisted Coding
 

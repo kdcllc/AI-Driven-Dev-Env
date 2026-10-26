@@ -4,7 +4,7 @@ A collection of repositories showcasing agentic AI patterns, agent frameworks, a
 
 | Repository | Summary | Key Focus |
 |---|---|---|
-| **[Squad](https://github.com/bradygaster/squad)** | Human-led AI agent teams using GitHub Copilot | Multi-agent orchestration, persistent state, `.squad/` templates |
+| **[agent-kit](https://github.com/kdcllc/skills/tree/master/skills/agent-kit)** | Orchestrator/worker/evaluator multi-agent system for Claude Code, Cursor, Copilot, and Codex | Multi-agent orchestration, evaluator gates, `_memory/` project memory |
 | [Semantic Workbench](https://github.com/kdcllc/semanticworkbench) | Semantic analysis and AI-driven decision-making | Python, Flask, Azure Cognitive Services |
 | [Python AI Agent Frameworks Demos](https://github.com/Azure-Samples/python-ai-agent-frameworks-demos) | Agent framework comparisons and examples | Python, FastAPI, Azure Machine Learning |
 | [Multi-Agent Workshop](https://github.com/Azure-Samples/multi-agent-workshop) | Multi-agent system design and patterns | Python, Azure ML, distributed systems |
